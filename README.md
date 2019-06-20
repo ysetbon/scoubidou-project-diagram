@@ -23,5 +23,12 @@ Note that some output still need some correction, the algorithm I wrote doesn't 
   <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_11_3_3X3.png" width="200" title="hover text">
     <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_11_5_3X3.png" width="200" title="hover text">
   <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_13_5_3X3.png" width="200" title="hover text">
-  <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_5_1_3X3.png" width="200" title="hover text">
+
+  
+  <p align="center">
+  <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_19_1_3X3.png" width="200" title="hover text">
+    <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_15_3_3X3.png" width="200" title="hover text">
+  <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_15_1_3X3.png" width="200" title="hover text">
+  <img src="https://github.com/ysetbon/scoubidou-project-diagram-/blob/master/images/basicStitch_13_4_3X3.png" width="200" title="hover text">
+  </p>
 
