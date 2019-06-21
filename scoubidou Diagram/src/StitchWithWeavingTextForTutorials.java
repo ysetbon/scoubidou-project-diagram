@@ -17,7 +17,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class StitchWithWeavingForTutorials {
+public class StitchWithWeavingTextForTutorials {
 	public static int stringlength = 150;
 	public static int stringWidth = MyPrintCanvasDiagram.stringWidth;
 	public static int recWidth = MyPrintCanvasDiagram.recWidth;
@@ -74,8 +74,8 @@ public class StitchWithWeavingForTutorials {
 		paralel = new nodeLine[crossNumberOfLines];
 		paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
 		// changing paralel and horizo parameters to what we got here
-		StitchWithWeavingForTutorials.paralel = paralel;
-		StitchWithWeavingForTutorials.horizo = horizo;
+		StitchWithWeavingTextForTutorials.paralel = paralel;
+		StitchWithWeavingTextForTutorials.horizo = horizo;
 	}
 
 	/**
@@ -265,18 +265,6 @@ public class StitchWithWeavingForTutorials {
 		
 		try {
 			ImageIO.write(horizo[0], "png", new File("c://temp//" +"horizo0"+ ".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			ImageIO.write(paralelBottom[0], "png", new File("c://temp//" +"paralelBottom0"+ ".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			ImageIO.write(paralelBottom[1], "png", new File("c://temp//" +"paralelBottom1"+ ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -675,7 +663,7 @@ public class StitchWithWeavingForTutorials {
 		// int firstLineEndPoint = 2 * a + 2 * b + 2 * a - 3;
 		int firstLineEndPoint = 5;
 		int crissNumberOfLines = 1;
-		StitchWithWeavingForTutorials wea = new StitchWithWeavingForTutorials();
+		StitchWithWeavingTextForTutorials wea = new StitchWithWeavingTextForTutorials();
 		// checikng an example 
 
 		wea.printPicture(firstLineEndPoint, crissNumberOfLines, a, b);

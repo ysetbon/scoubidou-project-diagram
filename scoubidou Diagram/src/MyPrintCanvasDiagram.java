@@ -64,12 +64,16 @@ class MyPrintCanvasDiagram extends JComponent {
 	public BufferedImage[] horizoRepresentedLines = null;
 	// the underline if needed backweaving
 	public BufferedImage[] horizoRepresentedLinesBottom = null;
-
+	// the lines of the bottom strings, if there's a backweave then we get a line that is not 0
+	public nodeLine[] horizoBottom = null;
+	
 	// the line representations of paralel strings
 	public BufferedImage[] paralelRepresentedLines = null;
 	// the underline if needed backweaving
 	public BufferedImage[] paralelRepresentedLinesBottom = null;
-
+	// the lines of the bottom strings, if there's a backweave then we get a line that is not 0
+	public nodeLine[] paralelBottom = null;
+	
 	// lines of the border of the strings
 	public Line2D.Float[] horizoSegmentUp = null;
 	public Line2D.Float[] horizoSegmentDown = null;
@@ -311,6 +315,9 @@ class MyPrintCanvasDiagram extends JComponent {
 
 			nodeLine[] horizo = null;
 			horizo = stitchAlgoForPrintStitch.paralelReturnOneOptionOposite(l, crissNumberOfLines);
+			//node points the bottom of the string
+			horizoBottom = new nodeLine[horizo.length];
+			
 			horizoRepresentedLines = new BufferedImage[horizo.length];
 			horizoRepresentedLinesBottom = new BufferedImage[horizo.length];
 			rectangleShapeHorizo = new Rectangle2D[horizo.length];
@@ -1501,6 +1508,9 @@ class MyPrintCanvasDiagram extends JComponent {
 						stroke, stringWidth, false);
 				horizoRepresentedLinesBottom[i + 1] = drawShapeLineSimpleBottom(firstOpposite, horizoParalel[i + 1],
 						strokeBorder, stroke, stringWidth, false);
+				horizoBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+				horizoBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
+
 			}
 			// if there is= back-weaving then bottom string is drawn
 			if (Math.hypot(firstPoint.x - horizoParalel[i].nodeRed.x, firstPoint.y - horizoParalel[i].nodeRed.y) > 10) {
@@ -1508,6 +1518,8 @@ class MyPrintCanvasDiagram extends JComponent {
 						stroke, stringWidth, true);
 				horizoRepresentedLinesBottom[i + 1] = drawShapeLineSimpleBottom(firstOpposite, horizoParalel[i + 1],
 						strokeBorder, stroke, stringWidth, true);
+				horizoBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+				horizoBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 			}
 
 		} else {
@@ -1521,6 +1533,8 @@ class MyPrintCanvasDiagram extends JComponent {
 						stroke, stringWidth, false);
 				paralelRepresentedLinesBottom[i + 1] = drawShapeLineSimpleBottom(firstOpposite, horizoParalel[i + 1],
 						strokeBorder, stroke, stringWidth, false);
+				paralelBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+				paralelBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 			}
 			// if there is back-weaving then bottom string is drawn
 			if (Math.hypot(firstPoint.x - horizoParalel[i].nodeRed.x, firstPoint.y - horizoParalel[i].nodeRed.y) > 10) {
@@ -1528,6 +1542,8 @@ class MyPrintCanvasDiagram extends JComponent {
 						stroke, stringWidth, true);
 				paralelRepresentedLinesBottom[i + 1] = drawShapeLineSimpleBottom(firstOpposite, horizoParalel[i + 1],
 						strokeBorder, stroke, stringWidth, true);
+				paralelBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+				paralelBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 			}
 		}
 
@@ -1796,6 +1812,8 @@ class MyPrintCanvasDiagram extends JComponent {
 					horizoRepresentedLinesBottom[horizoParalel.length - i - 1] = drawShapeLineSimpleBottom(
 							firstOpposite, horizoParalel[horizoParalel.length - i - 1], strokeBorder, stroke,
 							stringWidth, false);
+					horizoBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+					horizoBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 				}
 				// if there is= back-weaving then bottom string is drawn
 				if (Math.hypot(firstPoint.x - horizoParalel[i].nodeRed.x,
@@ -1805,6 +1823,8 @@ class MyPrintCanvasDiagram extends JComponent {
 					horizoRepresentedLinesBottom[horizoParalel.length - i - 1] = drawShapeLineSimpleBottom(
 							firstOpposite, horizoParalel[horizoParalel.length - i - 1], strokeBorder, stroke,
 							stringWidth, true);
+					horizoBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+					horizoBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 				}
 
 			} else {
@@ -1820,6 +1840,8 @@ class MyPrintCanvasDiagram extends JComponent {
 					paralelRepresentedLinesBottom[horizoParalel.length - i - 1] = drawShapeLineSimpleBottom(
 							firstOpposite, horizoParalel[horizoParalel.length - i - 1], strokeBorder, stroke,
 							stringWidth, false);
+					paralelBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+					paralelBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 				}
 				// if there is= back-weaving then bottom string is drawn
 				if (Math.hypot(firstPoint.x - horizoParalel[i].nodeRed.x,
@@ -1829,6 +1851,8 @@ class MyPrintCanvasDiagram extends JComponent {
 					paralelRepresentedLinesBottom[horizoParalel.length - i - 1] = drawShapeLineSimpleBottom(
 							firstOpposite, horizoParalel[horizoParalel.length - i - 1], strokeBorder, stroke,
 							stringWidth, true);
+					paralelBottom[i] = new nodeLine(horizoParalel[i].nodeRed,firstPoint);
+					paralelBottom[i+1] = new nodeLine(horizoParalel[i+1].nodeRed,firstOpposite);
 				}
 			}
 			// sending images to gif
