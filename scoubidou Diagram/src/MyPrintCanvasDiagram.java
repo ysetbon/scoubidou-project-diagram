@@ -12,7 +12,7 @@ import java.awt.geom.Area;
 
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,6 +25,8 @@ import java.io.UnsupportedEncodingException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+
+import com.sun.javafx.scene.paint.GradientUtils.Point;
 
 class MyPrintCanvasDiagram extends JComponent {
 	// thickness of the lines
@@ -577,13 +579,7 @@ class MyPrintCanvasDiagram extends JComponent {
 		shape.moveTo(paralelOrHorizo.nodeRed.x, paralelOrHorizo.nodeRed.y);
 		graphics2DCircleBorder.setColor(tempColor);
 		graphics2DCircleBorder.setStroke(stroke);
-		// updating horizo/paralel top 
-		if(isHorizo == true){
-			horizoTop[i] = new nodeLine(paralelOrHorizo.nodeRed,paralelOrHorizo.nodeGreen);
-		}
-		if(isHorizo == false){
-			paralelTop[i] = new nodeLine(paralelOrHorizo.nodeRed,paralelOrHorizo.nodeGreen);
-		}
+	
 		// node, y1 is green node
 
 		float x_tangent = ((float) stringWidth) / 2;
@@ -605,7 +601,22 @@ class MyPrintCanvasDiagram extends JComponent {
 				paralelOrHorizo.nodeGreen.x, paralelOrHorizo.nodeGreen.y, stringWidth, a, b);
 		// draws the circle shaped line to imageCircleBorder
 		graphics2DCircleBorder.draw(shape);
-
+		
+		/////////// updating horizo/paralel top 
+		Point2D secondPointOfString =DrawingStrings.getDrawThickShapeLineWithContinuation(shape, paralelOrHorizo.nodeRed.x, paralelOrHorizo.nodeRed.y,
+				paralelOrHorizo.nodeGreen.x, paralelOrHorizo.nodeGreen.y, stringWidth, a, b);
+		nodePoint secondPointOfStringNode = new  nodePoint((float)(secondPointOfString.getX()), (float)(secondPointOfString.getY()), Color.GREEN);
+		if(isHorizo == true){
+			//nodePoint lastNode = new nodePoint(lastPoint[0], lastPoint[1], Color.GREEN);
+			horizoTop[i] = new nodeLine(paralelOrHorizo.nodeRed,lastPoints[i]);
+		}
+		if(isHorizo == false){
+			//nodePoint lastNode = new nodePoint(lastPoint[0], lastPoint[1], Color.GREEN);
+			paralelTop[i] = new nodeLine(paralelOrHorizo.nodeRed,lastPoints[i]);	
+			}
+		
+		
+		
 		x_tangent = ((float) stringWidth) / 2;
 		y_tangent = 0;
 		// changing tangent a little for making sure strings won't intersect
@@ -759,14 +770,19 @@ class MyPrintCanvasDiagram extends JComponent {
 				secondPoint.y, stringWidth, backWeaveSecondPointx, backWeaveSecondPointy, a, b);
 		// draws the circle shaped line to imageCircleBorder
 		graphics2DCircleBorder.draw(shape);
-		// updating horizo/paralel top 
-
+    ///// updating horizo/paralel top 
+		Point2D secondPointOfString =	DrawingStrings.getDrawThickShapeLineWithContinuationBackWeaving(shape, firstPoint.x, firstPoint.y, secondPoint.x,
+				secondPoint.y, stringWidth, backWeaveSecondPointx, backWeaveSecondPointy, a, b);
+		nodePoint secondPointOfStringNode = new  nodePoint((float)(secondPointOfString.getX()), (float)(secondPointOfString.getY()), Color.GREEN);
 		if(isHorizo == true){
-			horizoTop[i] = new nodeLine(firstPoint,secondPoint);
+			//nodePoint lastNode = new nodePoint(lastPoint[0], lastPoint[1], Color.GREEN);
+			horizoTop[i] = new nodeLine(firstPoint,lastPoints[i]);
 		}
 		if(isHorizo == false){
-			paralelTop[i] = new nodeLine(firstPoint,secondPoint);
-		}
+			//nodePoint lastNode = new nodePoint(lastPoint[0], lastPoint[1], Color.GREEN);
+			paralelTop[i] = new nodeLine(firstPoint,lastPoints[i]);	
+			}
+		
 		x_tangent = ((float) stringWidth) / 2 + recWidth;
 		y_tangent = 0;
 		// changing tangent a little for making sure strings won't intersect
@@ -931,10 +947,10 @@ class MyPrintCanvasDiagram extends JComponent {
 		
 		// updating horizo/paralel top 
 		if(isHorizo == true){
-			horizoTop[i] = new nodeLine(firstPoint,secondPoint);
+			horizoTop[i] = new nodeLine(firstPoint,lastPoints[i]);
 		}
 		if(isHorizo == false){
-			paralelTop[i] = new nodeLine(firstPoint,secondPoint);
+			paralelTop[i] = new nodeLine(firstPoint,lastPoints[i]);
 		}
 		
 		x_tangent = ((float) stringWidth) / 2 + recWidth;
@@ -1339,30 +1355,21 @@ class MyPrintCanvasDiagram extends JComponent {
 				colors, lastPoints);
 		horizoRepresentedLinesTemp[i + 1] = drawShapeLine(isHorizo, horizoParalel[i + 1], strokeBorder, stroke,
 				stringWidth, i + 1, colors, lastPoints);
-		// sending lines of horizo/paralel to horizo/paralelTop
 		if (isHorizo == true) {
 			rectangleShapeHorizoParalel[i] = rectangleShapeHorizo[i];
-			horizoTop[i] = horizoParalel[i];
-			horizoTop[i + 1] = horizoParalel[i + 1];
+	
 		}
 
 		if (isHorizo == false) {
 			rectangleShapeHorizoParalel[i] = rectangleShapeParalel[i];
-			paralelTop[i] = horizoParalel[i];
-			paralelTop[i + 1] = horizoParalel[i + 1];
+		
 		}
 
 		// if it is a striaght stitch the might deserve back weaving
 		if ((horizoParalel[i].nodeGreen.x == horizoParalel[i].nodeRed.x)
 				|| (horizoParalel[i].nodeGreen.y == horizoParalel[i].nodeRed.y)) {
 			straightStitch(horizoRepresentedLinesTemp, horizoParalel, isHorizo);
-			// sending lines of horizo/paralel to horizo/paralelTop
-			if (isHorizo == true) {
-				horizoTop = horizoParalel;
-			}
-			if (isHorizo == false) {
-				paralelTop = horizoParalel;
-			}
+		
 			return;
 		}
 
@@ -1456,16 +1463,7 @@ class MyPrintCanvasDiagram extends JComponent {
 				horizoRepresentedLinesTemp[i + 1] = drawShapeLineBackWeave(isHorizo, horizoParalel[i + 1].nodeRed,
 						firstOpposite, secondOpposite, strokeBorder, stroke, stringWidth, i + 1, colors,
 						-backWeaveSecondPointx, -backWeaveSecondPointy, lastPoints);
-				// sending lines of horizo/paralel to horizo/paralelTop
-				if (isHorizo == true) {
-					horizoTop[i] = horizoParalel[i];
-					horizoTop[i + 1] = horizoParalel[i + 1];
-
-				}
-				if (isHorizo == false) {
-					paralelTop[i] = horizoParalel[i];
-					paralelTop[i + 1] = horizoParalel[i + 1];
-				}
+			
 				// sending images to gif
 				if (isGif = true) {
 					System.out.println("is gif is entered");
@@ -1626,29 +1624,12 @@ class MyPrintCanvasDiagram extends JComponent {
 			} else {
 				horizoRepresentedLinesTemp[i + 1] = paralelRepresentedLines[i + 1];
 			}
-			// sending lines of horizo/paralel to horizo/paralelTop
-			if (isHorizo == true) {
-				horizoTop[i] = horizoParalel[i];
-				horizoTop[i + 1] = horizoParalel[i + 1];
-
-			}
-			if (isHorizo == false) {
-				paralelTop[i] = horizoParalel[i];
-				paralelTop[i + 1] = horizoParalel[i + 1];
-			}
+	
 
 			horizoRepresentedLinesTemp[horizoParalel.length - i - 1] = drawShapeLine(isHorizo,
 					horizoParalel[horizoParalel.length - i - 1], strokeBorder, stroke, stringWidth,
 					horizoParalel.length - i - 1, colors, lastPoints);
-			// sending lines of horizo/paralel to horizo/paralelTop
-			if (isHorizo == true) {
-				horizoTop[horizoTop.length - i - 1] = horizoParalel[horizoTop.length - i - 1];
-
-			}
-			if (isHorizo == false) {
-				paralelTop[paralelTop.length - i - 1] = horizoParalel[paralelTop.length - i - 1];
-			}
-
+	
 			// sending images to gif
 			if (isGif = true) {
 				System.out.println("is gif is entered");
@@ -1763,16 +1744,7 @@ class MyPrintCanvasDiagram extends JComponent {
 							firstPoints[horizoParalel.length - i - 2], lastPoints[horizoParalel.length - i - 2],
 							strokeBorder, stroke, stringWidth, horizoParalel.length - i - 1, colors,
 							-backWeaveFirstPointx, -backWeaveSecondPointy, lastPoints);
-					// sending lines of horizo/paralel to horizo/paralelTop
-					if (isHorizo == true) {
-						horizoTop[i] = horizoParalel[i];
-						horizoTop[horizoTop.length - i - 1] = horizoParalel[horizoTop.length - i - 1];
-
-					}
-					if (isHorizo == false) {
-						paralelTop[i] = horizoParalel[i];
-						paralelTop[paralelTop.length - i - 1] = horizoParalel[paralelTop.length - i - 1];
-					}
+			
 					// if the paralel strings does intersect then we need to
 					// find a different alignment
 					if (CropImage.isIntersectNew(horizoRepresentedLinesTemp[i], horizoRepresentedLinesTemp[i + 1], x1,
@@ -1793,17 +1765,7 @@ class MyPrintCanvasDiagram extends JComponent {
 								horizoParalel[horizoParalel.length - i - 1].nodeRed, firstOpposite, secondOpposite,
 								strokeBorder, stroke, stringWidth, horizoParalel.length - i - 1, colors,
 								-backWeaveSecondPointx, -backWeaveSecondPointy, lastPoints);
-						// sending lines of horizo/paralel to horizo/paralelTop
-						if (isHorizo == true) {
-							horizoTop[i] = horizoParalel[i];
-							horizoTop[horizoTop.length - i - 1] = horizoParalel[horizoTop.length - i - 1];
-
-						}
-						if (isHorizo == false) {
-							paralelTop[i] = horizoParalel[i];
-							paralelTop[paralelTop.length - i - 1] = horizoParalel[paralelTop.length - i - 1];
-						}
-
+				
 						// sending images to gif
 						if (isGif = true) {
 							System.out.println("is gif is entered");
@@ -1896,17 +1858,7 @@ class MyPrintCanvasDiagram extends JComponent {
 				horizoRepresentedLines[i] = horizoRepresentedLinesTemp[i];
 				horizoRepresentedLines[horizoParalel.length - i - 1] = horizoRepresentedLinesTemp[horizoParalel.length
 						- i - 1];
-				// sending lines of horizo/paralel to horizo/paralelTop
-				if (isHorizo == true) {
-					horizoTop[i] = horizoParalel[i];
-					horizoTop[horizoTop.length - i - 1] = horizoParalel[horizoTop.length - i - 1];
-
-				}
-				if (isHorizo == false) {
-					paralelTop[i] = horizoParalel[i];
-					paralelTop[paralelTop.length - i - 1] = horizoParalel[paralelTop.length - i - 1];
-				}
-
+		
 				// if there is no back-weaving then bottom string is just a
 				// transparent image
 				if (Math.hypot(firstPoint.x - horizoParalel[i].nodeRed.x,
@@ -1935,16 +1887,7 @@ class MyPrintCanvasDiagram extends JComponent {
 				paralelRepresentedLines[i] = horizoRepresentedLinesTemp[i];
 				paralelRepresentedLines[horizoParalel.length - i - 1] = horizoRepresentedLinesTemp[horizoParalel.length
 						- i - 1];
-				// sending lines of horizo/paralel to horizo/paralelTop
-				if (isHorizo == true) {
-					horizoTop[i] = horizoParalel[i];
-					horizoTop[horizoTop.length - i - 1] = horizoParalel[horizoTop.length - i - 1];
-
-				}
-				if (isHorizo == false) {
-					paralelTop[i] = horizoParalel[i];
-					paralelTop[paralelTop.length - i - 1] = horizoParalel[paralelTop.length - i - 1];
-				}
+			
 				// if there is no back-weaving then bottom string is just a
 				// transparent image
 				if (Math.hypot(firstPoint.x - horizoParalel[i].nodeRed.x,

@@ -181,10 +181,6 @@ public class StitchWithWeavingForTutorials {
 		Rectangle2D[] paralelBounds = canv.rectangleShapeParalel;
 		BufferedImage[] paralelTemp = canv.paralelRepresentedLines;
 
-	//BufferedImage tempo = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		//tempo= horizo[1];
-	//horizo[1] = horizo[0];
-		//horizo[0] = tempo;
 	
 		BufferedImage crissImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 

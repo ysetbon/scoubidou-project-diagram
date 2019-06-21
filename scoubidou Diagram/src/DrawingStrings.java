@@ -131,6 +131,98 @@ public class DrawingStrings {
 
 	}
 
+	// returning the second point of the string
+		public static Point getDrawThickShapeLineWithContinuation(GeneralPath shape, float x, float y, float x2, float y2,
+				double thickness, int a, int b) {
+			int width = 2 * length * a;
+			int hight = 2 * length * b;
+			Point new_secondPoint = new Point();
+
+			if ((x == x2) && ((x == x1) || (x == (x1 + width)))) {
+				shape.lineTo(x2, y2);
+				 new_secondPoint.x = (int) x2;
+				 new_secondPoint.y = (int) y2;
+
+			}
+
+			else if ((y == y2) && ((y == y1) || (y == (y1 + hight)))) {
+				shape.lineTo(x2, y2);
+				new_secondPoint.x = (int) x2;
+				 new_secondPoint.y = (int) y2;
+			}
+
+			else {
+				if ((x != x2) || (y != y2)) {
+					Point firstPoint = new Point((int) x, (int) y);
+					Point secondPoint = new Point((int) x2, (int) y2);
+					if (x2 == x1) {
+						Point outsidePoint = new Point((int) x2 - lengthOfStringEnd, (int) y2);
+						new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+						int tempo_lengthOfStringEnd = lengthOfStringEnd;
+						int i = 1;
+						// adding a little more length
+						while (new_secondPoint.distance(secondPoint) < lengthOfStringEnd) {
+							tempo_lengthOfStringEnd = tempo_lengthOfStringEnd + i;
+							outsidePoint = new Point((int) x2 - tempo_lengthOfStringEnd, (int) y2);
+							new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+							i++;
+						}
+						return new_secondPoint;
+
+					}
+					if (x2 == x1 + width) {
+						Point outsidePoint = new Point((int) x2 + lengthOfStringEnd, (int) y2);
+						new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+						int tempo_lengthOfStringEnd = lengthOfStringEnd;
+						int i = 1;
+						// adding a little more length
+						while (new_secondPoint.distance(secondPoint) < lengthOfStringEnd) {
+							tempo_lengthOfStringEnd = tempo_lengthOfStringEnd + i;
+							outsidePoint = new Point((int) x2 + tempo_lengthOfStringEnd, (int) y2);
+							new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+							i++;
+						}
+						return new_secondPoint;
+
+					}
+
+					if (y2 == y1) {
+						Point outsidePoint = new Point((int) x2, (int) y2 - lengthOfStringEnd);
+						new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+						int tempo_lengthOfStringEnd = lengthOfStringEnd;
+						int i = 1;
+						// adding a little more length
+						while (new_secondPoint.distance(secondPoint) < lengthOfStringEnd) {
+							tempo_lengthOfStringEnd = tempo_lengthOfStringEnd + i;
+							outsidePoint = new Point((int) x2, (int) y2 - tempo_lengthOfStringEnd);
+							new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+							i++;
+						}
+						return new_secondPoint;
+
+					}
+					if (y2 == y1 + hight) {
+						Point outsidePoint = new Point((int) x2, (int) y2 + lengthOfStringEnd);
+						new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+						int tempo_lengthOfStringEnd = lengthOfStringEnd;
+						int i = 1;
+						// adding a little more length
+						while (new_secondPoint.distance(secondPoint) < lengthOfStringEnd) {
+							tempo_lengthOfStringEnd = tempo_lengthOfStringEnd + i;
+							outsidePoint = new Point((int) x2, (int) y2 + tempo_lengthOfStringEnd);
+							new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+							i++;
+						}
+						return new_secondPoint;
+
+					}
+
+				}
+			}
+			return new_secondPoint;
+
+		}
+		
 	// drawing the continuation of the strait line
 	public static void drawThickShapeLineWithContinuationBackWeaving(GeneralPath shape, float first_x, float first_y, float second_x, float second_y,
 			double thickness, int backWeaveSecondPointx,
@@ -244,6 +336,84 @@ public class DrawingStrings {
 				}
 
 			}
+
+		
+
+	}
+	
+	// returning the sencond point of the string
+	public static Point getDrawThickShapeLineWithContinuationBackWeaving(GeneralPath shape, float first_x, float first_y, float second_x, float second_y,
+			double thickness, int backWeaveSecondPointx,
+			int backWeaveSecondPointy, int a, int b) {
+		int width = 2 * length * a;
+		int hight = 2 * length * b;
+		
+		Point new_secondPoint = new Point((int) second_x, (int) second_y);
+		if ((first_x == second_x) && ((first_x == (x1+backWeaveSecondPointx)) || (first_x == (x1 + width+backWeaveSecondPointx)))) {
+			shape.lineTo(second_x, second_y);
+			return new_secondPoint;
+		}
+
+		else if ((first_y == second_y) && ((first_y == (y1+backWeaveSecondPointy)) || (first_y == (y1 + hight+backWeaveSecondPointy)))) {
+			shape.lineTo(second_x, second_y);
+			return new_secondPoint;
+		}
+
+		else {
+			if ((first_x != second_x) || (first_y != second_y)) {
+				Point firstPoint = new Point((int) first_x, (int) first_y);
+				Point secondPoint = new Point((int) second_x, (int) second_y);
+				if (second_x == (x1+backWeaveSecondPointx)) {
+					
+				/*	Point outsidePoint = new Point((int) x2 - lengthOfStringEnd, (int) y2);
+					new_secondPoint = getClosestPointOnALine(firstPoint, secondPoint, outsidePoint);
+					*/
+					Point A = new Point(x1-lengthOfStringEnd, 0);
+					Point B = new Point(x1-lengthOfStringEnd, 1);
+					Point C = secondPoint;
+					Point D = firstPoint;
+					
+					new_secondPoint = lineIntersection(A, B, C, D);
+					return new_secondPoint;
+
+
+				}
+				if (second_x == (x1+backWeaveSecondPointx) + width) {
+					Point A = new Point(x1+lengthOfStringEnd+width, 0);
+					Point B = new Point(x1+lengthOfStringEnd+width, 1);
+					Point C = secondPoint;
+					Point D = firstPoint;
+					
+					new_secondPoint = lineIntersection(A, B, C, D);			
+					return new_secondPoint;
+
+				}
+
+				if (second_y == (y1+backWeaveSecondPointy)) {
+					Point A = new Point(0, y1-lengthOfStringEnd);
+					Point B = new Point(1,y1-lengthOfStringEnd);
+					Point C = secondPoint;
+					Point D = firstPoint;
+					
+					new_secondPoint = lineIntersection(A, B, C, D);					
+					return new_secondPoint;
+
+
+				}
+				if (second_y == (y1+backWeaveSecondPointy) + hight) {
+					Point A = new Point(0, (y1+lengthOfStringEnd) + hight);
+					Point B = new Point(1, (y1+lengthOfStringEnd) + hight);
+					Point C = secondPoint;
+					Point D = firstPoint;
+					new_secondPoint = lineIntersection(A, B, C, D);					
+					return new_secondPoint;
+
+					}
+
+				}
+
+			}
+		return new_secondPoint;
 
 		
 
