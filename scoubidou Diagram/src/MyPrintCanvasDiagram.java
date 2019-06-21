@@ -333,11 +333,12 @@ class MyPrintCanvasDiagram extends JComponent {
 			horizoSegmentVerticle = new Line2D.Float[horizo.length];
 			horizoArea = new Area[horizo.length];
 
-			BufferedImage[] horizoRepresentedLinesTemp = new BufferedImage[horizo.length];
-			g2.setColor(firstColor);
+		
 
 			// if we need to paint Criss
 			if (isCrissWeave == true) {
+				BufferedImage[] horizoRepresentedLinesTemp = new BufferedImage[horizo.length];
+				g2.setColor(firstColor);
 				getAllStrings(horizoRepresentedLinesTemp, horizo, true);
 				// creating a text file for horizo strings
 				// positions//////////////////////////////////////////////////////////
@@ -415,26 +416,28 @@ class MyPrintCanvasDiagram extends JComponent {
 			
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			nodeLine[] paralel = new nodeLine[crossNumberOfLines];
-			paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
-
-			paralelBottom = new nodeLine[paralel.length];
-			paralelTop = new nodeLine[paralel.length];
-
-			paralelRepresentedLines = new BufferedImage[paralel.length];
-			paralelRepresentedLinesBottom = new BufferedImage[paralel.length];
-			rectangleShapeParalel = new Rectangle2D[paralel.length];
-			paralelSegmentDown = new Line2D.Float[paralel.length];
-			paralelSegmentUp = new Line2D.Float[paralel.length];
-			paralelSegmentVerticle = new Line2D.Float[paralel.length];
-			paralelArea = new Area[paralel.length];
-
-			BufferedImage[] paralelRepresentedLinesTemp = new BufferedImage[paralel.length];
-
-			g2.setColor(secondColor);
+		
 
 			// if we need to paint Cross
 			if (isCrissWeave == false) {
+				
+				nodeLine[] paralel = new nodeLine[crossNumberOfLines];
+				paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
+
+				paralelBottom = new nodeLine[paralel.length];
+				paralelTop = new nodeLine[paralel.length];
+
+				paralelRepresentedLines = new BufferedImage[paralel.length];
+				paralelRepresentedLinesBottom = new BufferedImage[paralel.length];
+				rectangleShapeParalel = new Rectangle2D[paralel.length];
+				paralelSegmentDown = new Line2D.Float[paralel.length];
+				paralelSegmentUp = new Line2D.Float[paralel.length];
+				paralelSegmentVerticle = new Line2D.Float[paralel.length];
+				paralelArea = new Area[paralel.length];
+
+				BufferedImage[] paralelRepresentedLinesTemp = new BufferedImage[paralel.length];
+
+				g2.setColor(secondColor);
 				getAllStrings(paralelRepresentedLinesTemp, paralel, false);
 
 				// creating a text file for horizo strings
@@ -575,10 +578,10 @@ class MyPrintCanvasDiagram extends JComponent {
 		graphics2DCircleBorder.setColor(tempColor);
 		graphics2DCircleBorder.setStroke(stroke);
 		// updating horizo/paralel top 
-		if(isHorizo = true){
+		if(isHorizo == true){
 			horizoTop[i] = new nodeLine(paralelOrHorizo.nodeRed,paralelOrHorizo.nodeGreen);
 		}
-		if(isHorizo = false){
+		if(isHorizo == false){
 			paralelTop[i] = new nodeLine(paralelOrHorizo.nodeRed,paralelOrHorizo.nodeGreen);
 		}
 		// node, y1 is green node
@@ -758,10 +761,10 @@ class MyPrintCanvasDiagram extends JComponent {
 		graphics2DCircleBorder.draw(shape);
 		// updating horizo/paralel top 
 
-		if(isHorizo = true){
+		if(isHorizo == true){
 			horizoTop[i] = new nodeLine(firstPoint,secondPoint);
 		}
-		if(isHorizo = false){
+		if(isHorizo == false){
 			paralelTop[i] = new nodeLine(firstPoint,secondPoint);
 		}
 		x_tangent = ((float) stringWidth) / 2 + recWidth;
@@ -927,10 +930,10 @@ class MyPrintCanvasDiagram extends JComponent {
 		graphics2DCircleBorder.draw(shape);
 		
 		// updating horizo/paralel top 
-		if(isHorizo = true){
+		if(isHorizo == true){
 			horizoTop[i] = new nodeLine(firstPoint,secondPoint);
 		}
-		if(isHorizo = false){
+		if(isHorizo == false){
 			paralelTop[i] = new nodeLine(firstPoint,secondPoint);
 		}
 		
