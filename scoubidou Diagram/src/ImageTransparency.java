@@ -1,5 +1,3 @@
-package scoubidou4;
-
 
 import java.awt.Color;
 import java.awt.Graphics2D;

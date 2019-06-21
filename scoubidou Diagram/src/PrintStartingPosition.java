@@ -1,4 +1,3 @@
-package scoubidou4;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

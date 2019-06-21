@@ -1,4 +1,3 @@
-package scoubidou4;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -18,7 +17,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -329,22 +330,72 @@ class MyPrintCanvasDiagram extends JComponent {
 
 			}
 			
-			//creating a text file for horizo strings positions 
-			PrintWriter writer;
+			//creating a text file for horizo strings positions////////////////////////////////////////////////////////// 
+			File fileTextHorizo = new File("c://temp//text_files//"+"horizo"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+		
+			//Create the file
 			try {
-				writer = new PrintWriter("the-file-name.txt", "UTF-8");
-				writer.println("The first line");
-				writer.println("The second line");
-				writer.close();
-				
-			} catch (FileNotFoundException e) {
+				if (fileTextHorizo.createNewFile())
+				{
+				    System.out.println("File is created!");
+				} else {
+					fileTextHorizo = new File("c://temp//text_files//"+"horizo"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+				}
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				e1.printStackTrace();
+			}			 
+			//Write Content
+			PrintStream fileStreamHorizo;
+			try {
+				fileStreamHorizo = new PrintStream(fileTextHorizo);
+				fileStreamHorizo.println("starting       |ending       ");
+
+				for(int i =0; i<horizo.length; i++){
+					fileStreamHorizo.println(horizo[i].nodeRed.x +" ,"+horizo[i].nodeRed.y+" |"+horizo[i].nodeGreen.x +" ,"+horizo[i].nodeGreen.y);
+				}
+			} 
 			
+			catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
+			
+			// a plain text file with the same cotent as above///////////////////////////////////////////////////////////////////////
+			File fileTextHorizoPlain = new File("c://temp//text_files//"+"horizoPlain"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+
+			//Create the file
+			try {
+				if (fileTextHorizoPlain.createNewFile())
+				{
+				    System.out.println("File is created!");
+				} else {
+					fileTextHorizoPlain = new File("c://temp//text_files//"+"horizoPlain"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			 
+			//Write Content
+			PrintStream fileStreamHorizoPlain;
+			try {
+				fileStreamHorizoPlain = new PrintStream(fileTextHorizoPlain);
+				for(int i =0; i<horizo.length; i++){
+					fileStreamHorizoPlain.println(horizo[i].nodeRed.x);
+					fileStreamHorizoPlain.println(horizo[i].nodeRed.y);
+					fileStreamHorizoPlain.println(horizo[i].nodeGreen.x);
+					fileStreamHorizoPlain.println(horizo[i].nodeGreen.y);
+
+				}
+			} 
+			
+			catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
+			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 			
 			nodeLine[] paralel = new nodeLine[crossNumberOfLines];
 			paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
@@ -364,6 +415,73 @@ class MyPrintCanvasDiagram extends JComponent {
 			if (isCrissWeave == false) {
 				getAllStrings(paralelRepresentedLinesTemp, paralel, false);
 			}
+			
+			//creating a text file for horizo strings positions////////////////////////////////////////////////////////// 
+			File fileTextParalel = new File("c://temp//text_files//"+"paralel"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+			//Create the file
+			try {
+				if (fileTextParalel.createNewFile())
+				{
+				    System.out.println("File is created!");
+				} else {
+					fileTextParalel = new File("c://temp//text_files//"+"paralel"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			 
+			//Write Content
+			PrintStream fileStreamParalel;
+			try {
+				fileStreamParalel = new PrintStream(fileTextParalel);
+				fileStreamParalel.println("starting       |ending       ");
+
+				for(int i =0; i<paralel.length; i++){
+					fileStreamParalel.println(paralel[i].nodeRed.x +" ,"+paralel[i].nodeRed.y+" |"+paralel[i].nodeGreen.x +" ,"+paralel[i].nodeGreen.y);
+				}
+			} 
+			
+			catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// a plain text file with the same cotent as above///////////////////////////////////////////////////////////////////////
+						File fileTextParalelPlain = new File("c://temp//text_files//"+"paralelPlain"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+
+						//Create the file
+						try {
+							if (fileTextParalelPlain.createNewFile())
+							{
+							    System.out.println("File is created!");
+							} else {
+								fileTextParalelPlain = new File("c://temp//text_files//"+"paralelPlain"+firstLineEndPoint+"_"+ crissNumberOfLines+"_"+ a+"_"+b+".txt");  
+							}
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}			 
+						//Write Content
+						PrintStream fileStreamParalelPlain;
+						try {
+							fileStreamParalelPlain = new PrintStream(fileTextParalelPlain);
+							for(int i =0; i<paralel.length; i++){
+								fileStreamParalelPlain.println(paralel[i].nodeRed.x);
+								fileStreamParalelPlain.println(paralel[i].nodeRed.y);
+								fileStreamParalelPlain.println(paralel[i].nodeGreen.x);
+								fileStreamParalelPlain.println(paralel[i].nodeGreen.y);
+
+							}
+						} 
+						
+						catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}	
+						
+			
+			
+			
 		}
 	}
 

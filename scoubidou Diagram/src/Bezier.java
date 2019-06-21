@@ -1,5 +1,4 @@
-package scoubidou4;
-  
+
 /*
  * Copyright (c) 2005 David Benson
  *  

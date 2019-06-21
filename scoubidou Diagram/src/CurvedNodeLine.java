@@ -1,4 +1,3 @@
-package scoubidou4;
 
 /**
  * This is a class to find nodeLines that suppose to to be strait, but because
