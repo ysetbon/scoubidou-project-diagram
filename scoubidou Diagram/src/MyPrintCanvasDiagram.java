@@ -602,10 +602,7 @@ class MyPrintCanvasDiagram extends JComponent {
 		// draws the circle shaped line to imageCircleBorder
 		graphics2DCircleBorder.draw(shape);
 		
-		/////////// updating horizo/paralel top 
-		Point2D secondPointOfString =DrawingStrings.getDrawThickShapeLineWithContinuation(shape, paralelOrHorizo.nodeRed.x, paralelOrHorizo.nodeRed.y,
-				paralelOrHorizo.nodeGreen.x, paralelOrHorizo.nodeGreen.y, stringWidth, a, b);
-		nodePoint secondPointOfStringNode = new  nodePoint((float)(secondPointOfString.getX()), (float)(secondPointOfString.getY()), Color.GREEN);
+	
 		if(isHorizo == true){
 			//nodePoint lastNode = new nodePoint(lastPoint[0], lastPoint[1], Color.GREEN);
 			horizoTop[i] = new nodeLine(paralelOrHorizo.nodeRed,lastPoints[i]);
@@ -770,10 +767,7 @@ class MyPrintCanvasDiagram extends JComponent {
 				secondPoint.y, stringWidth, backWeaveSecondPointx, backWeaveSecondPointy, a, b);
 		// draws the circle shaped line to imageCircleBorder
 		graphics2DCircleBorder.draw(shape);
-    ///// updating horizo/paralel top 
-		Point2D secondPointOfString =	DrawingStrings.getDrawThickShapeLineWithContinuationBackWeaving(shape, firstPoint.x, firstPoint.y, secondPoint.x,
-				secondPoint.y, stringWidth, backWeaveSecondPointx, backWeaveSecondPointy, a, b);
-		nodePoint secondPointOfStringNode = new  nodePoint((float)(secondPointOfString.getX()), (float)(secondPointOfString.getY()), Color.GREEN);
+
 		if(isHorizo == true){
 			//nodePoint lastNode = new nodePoint(lastPoint[0], lastPoint[1], Color.GREEN);
 			horizoTop[i] = new nodeLine(firstPoint,lastPoints[i]);
@@ -1265,22 +1259,7 @@ class MyPrintCanvasDiagram extends JComponent {
 			// graphics2DCircleBorder.setColor(tempColor);
 			graphics2DCircleBorder.setStroke(stroke);
 			graphics2DCircleBorder.draw(shape);
-			// the image for the cropped circle
-			/*
-			 * imageCircleBorder =
-			 * CropCircleImage.cropInverse(imageCircleBorder, lastPoint[0],
-			 * lastPoint[1], stringWidth);
-			 * 
-			 * //the image for the cropped rectanle imageRectangleBorder =
-			 * CropCircleImage.crop(imageRectangleBorder, lastPoint[0],
-			 * lastPoint[1], stringWidth);
-			 */
-			// the last point should be a circle style finishing, contrast to
-			// other methods
-			// CropImage.addImage(imageRectangleBorder, imageCircleBorder, 1, 0,
-			// 0);
-			// writes down the three points of the line to log
-
+	
 			return imageCircleBorder;
 		}
 	}
