@@ -110,8 +110,8 @@ public class StitchWithWeavingForTutorials {
 		colors[0] = new Color(140, 108, 132);
 		colors[2] = new Color(107, 167, 17);
 		colors[4] = new Color(140, 108, 132);
-		colors[6] = new Color(107, 167, 17);
-        colors[8] = new Color(202, 117, 63);
+	//	colors[6] = new Color(107, 167, 17);
+     //   colors[8] = new Color(202, 117, 63);
 	//	colors[10] = new Color(3, 83, 180);
 	/*	    colors[0] = new Color(87,87,87);
 			colors[1] = new Color(87,87,87);
@@ -265,18 +265,8 @@ public class StitchWithWeavingForTutorials {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			ImageIO.write(paralelBottom[0], "png", new File("c://temp//" +"paralelBottom0"+ ".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			ImageIO.write(paralelBottom[1], "png", new File("c://temp//" +"paralelBottom1"+ ".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+		
 		try {
 			ImageIO.write(horizo[1], "png", new File("c://temp//" +"horizo1"+ ".png"));
 		} catch (IOException e) {
@@ -653,7 +643,7 @@ public class StitchWithWeavingForTutorials {
 		localwindow.setAutoRequestFocus(true);
 
 		int a = 1;
-		int b = 3;
+		int b = 1;
 		MyPrintCanvasDiagram.a = a;
 		MyPrintCanvasDiagram.b = b;
 		Color[] colors = new Color[1];

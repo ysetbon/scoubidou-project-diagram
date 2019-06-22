@@ -378,7 +378,30 @@ class MyPrintCanvasDiagram extends JComponent {
 
 				// a plain text file with the same cotent as
 				// above///////////////////////////////////////////////////////////////////////
-				File fileTextHorizoPlain = new File("c://temp//text_files//" + "horizoPlain" + firstLineEndPoint + "_"
+				PrintWriter fileTextHorizoPlain = null;
+				try {
+					fileTextHorizoPlain = new PrintWriter(new File("c://temp//text_files//" + "horizoPlain" + firstLineEndPoint + "_"
+							+ crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+				} catch (FileNotFoundException e) {
+				    e.printStackTrace();
+				}
+				StringBuilder builderHorizo = new StringBuilder();
+				String ColumnNamesListHorizo = "nodes";
+				// No need give the headers Like: id, Name on builder.append
+				builderHorizo.append(ColumnNamesListHorizo +"\n");
+				for (int i = 0; i < horizo.length; i++) {
+					builderHorizo.append(horizoTop[i].nodeRed.x);
+					builderHorizo.append('\n');
+					builderHorizo.append(horizoTop[i].nodeRed.y);
+					builderHorizo.append('\n');
+					builderHorizo.append(horizoTop[i].nodeGreen.x);
+					builderHorizo.append('\n');
+					builderHorizo.append(horizoTop[i].nodeGreen.y);
+					builderHorizo.append('\n');
+				}
+				fileTextHorizoPlain.write(builderHorizo.toString());
+				fileTextHorizoPlain.close();
+				/*File fileTextHorizoPlain = new File("c://temp//text_files//" + "horizoPlain" + firstLineEndPoint + "_"
 						+ crissNumberOfLines + "_" + a + "_" + b + ".txt");
 
 				// Create the file
@@ -409,7 +432,7 @@ class MyPrintCanvasDiagram extends JComponent {
 				catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 
 				
 				System.out.println("crissNuberOfLines-" + crissNumberOfLines);
@@ -476,39 +499,30 @@ class MyPrintCanvasDiagram extends JComponent {
 				}
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// a plain text file with the same cotent as
-				////////////////////////////////////////////////////////////////////////////////////////////////////////// above///////////////////////////////////////////////////////////////////////
-				File fileTextParalelPlain = new File("c://temp//text_files//" + "paralelPlain" + firstLineEndPoint + "_"
-						+ crissNumberOfLines + "_" + a + "_" + b + ".txt");
-
-				// Create the file
+				// above///////////////////////////////////////////////////////////////////////
+				PrintWriter fileTextParalelPlain = null;
 				try {
-					if (fileTextParalelPlain.createNewFile()) {
-						System.out.println("File is created!");
-					} else {
-						fileTextParalelPlain = new File("c://temp//text_files//" + "paralelPlain" + firstLineEndPoint
-								+ "_" + crissNumberOfLines + "_" + a + "_" + b + ".txt");
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					fileTextParalelPlain = new PrintWriter(new File("c://temp//text_files//" + "paralelPlain" + firstLineEndPoint + "_"
+							+ crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+				} catch (FileNotFoundException e) {
+				    e.printStackTrace();
 				}
-				// Write Content
-				PrintStream fileStreamParalelPlain;
-				try {
-					fileStreamParalelPlain = new PrintStream(fileTextParalelPlain);
-					for (int i = 0; i < paralel.length; i++) {
-						fileStreamParalelPlain.println(paralelTop[i].nodeRed.x);
-						fileStreamParalelPlain.println(paralelTop[i].nodeRed.y);
-						fileStreamParalelPlain.println(paralelTop[i].nodeGreen.x);
-						fileStreamParalelPlain.println(paralelTop[i].nodeGreen.y);
-
-					}
+				StringBuilder builderParalel = new StringBuilder();
+				String ColumnNamesListParalel = "nodes";
+				// No need give the headers Like: id, Name on builder.append
+				builderParalel.append(ColumnNamesListParalel +"\n");
+				for (int i = 0; i < paralel.length; i++) {
+					builderParalel.append(paralelTop[i].nodeRed.x);
+					builderParalel.append('\n');
+					builderParalel.append(paralelTop[i].nodeRed.y);
+					builderParalel.append('\n');
+					builderParalel.append(paralelTop[i].nodeGreen.x);
+					builderParalel.append('\n');
+					builderParalel.append(paralelTop[i].nodeGreen.y);
+					builderParalel.append('\n');
 				}
-
-				catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				fileTextParalelPlain.write(builderParalel.toString());
+				fileTextParalelPlain.close();
 			}
 
 		}

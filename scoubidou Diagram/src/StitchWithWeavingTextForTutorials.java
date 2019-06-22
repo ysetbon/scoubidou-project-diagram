@@ -19,21 +19,21 @@ import javax.swing.JFrame;
 
 public class StitchWithWeavingTextForTutorials {
 	public static int stringlength = 150;
-	public static int stringWidth = MyPrintCanvasDiagram.stringWidth;
-	public static int recWidth = MyPrintCanvasDiagram.recWidth;
+	public static int stringWidth = MyPrintCanvasTextDiagram.stringWidth;
+	public static int recWidth = MyPrintCanvasTextDiagram.recWidth;
 
 	// thickness of the lines
 
-	public static int lengthOfStringEnd = MyPrintCanvasDiagram.lengthOfStringEnd;
+	public static int lengthOfStringEnd = MyPrintCanvasTextDiagram.lengthOfStringEnd;
 	// exporting the colors of the strings from MyprintCanvasDiagram
-	public static Color[] colors = MyPrintCanvasDiagram.colors;
+	public static Color[] colors = MyPrintCanvasTextDiagram.colors;
 	// spaces in-between 2 lines
 	public static int yOfStitch = 10 + lengthOfStringEnd;
-	public static int length = MyPrintCanvasDiagram.length;
+	public static int length = MyPrintCanvasTextDiagram.length;
 	// starting point of square (left up)+a little extra for the length of the
 	// string
-	public static int x1 = MyPrintCanvasDiagram.x1;
-	public static int y1 = MyPrintCanvasDiagram.y1;
+	public static int x1 = MyPrintCanvasTextDiagram.x1;
+	public static int y1 = MyPrintCanvasTextDiagram.y1;
 
 	// starting strings imgages
 	public static BufferedImage[] horizoStarting;
@@ -90,9 +90,9 @@ public class StitchWithWeavingTextForTutorials {
 
 	public void printPicture(int firstLindEndPoint, int crissNumberOfLines, int a, int b) throws IOException {
 
-		int width = 2 * a * MyPrintCanvasDiagram.length + 2 * MyPrintCanvasDiagram.x1
-				+ 2 * MyPrintCanvasDiagram.lengthOfStringEnd + 300;
-		int height = 2 * b * MyPrintCanvasDiagram.length + 2 * MyPrintCanvasDiagram.y1 + 300;
+		int width = 2 * a * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.x1
+				+ 2 * MyPrintCanvasTextDiagram.lengthOfStringEnd + 300;
+		int height = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 300;
 		JFrame localwindow = new JFrame();
 		localwindow.setAutoRequestFocus(true);
 
@@ -110,8 +110,8 @@ public class StitchWithWeavingTextForTutorials {
 		colors[0] = new Color(140, 108, 132);
 		colors[2] = new Color(107, 167, 17);
 		colors[4] = new Color(140, 108, 132);
-		colors[6] = new Color(107, 167, 17);
-        colors[8] = new Color(202, 117, 63);
+	//	colors[6] = new Color(107, 167, 17);
+      //  colors[8] = new Color(202, 117, 63);
 	//	colors[10] = new Color(3, 83, 180);
 	/*	    colors[0] = new Color(87,87,87);
 			colors[1] = new Color(87,87,87);
@@ -132,7 +132,7 @@ public class StitchWithWeavingTextForTutorials {
 		shapeLineStarting(firstLindEndPoint, crissNumberOfLines, a, b, strokeBorder, stringWidth, colors);
 
 		// localwindow.setLocation(firstLindEndPoint*10, firstLindEndPoint*10);
-		MyPrintCanvasDiagram canv = new MyPrintCanvasDiagram();
+		MyPrintCanvasTextDiagram canv = new MyPrintCanvasTextDiagram();
 		// setting the colors of the strings
 		canv.colors = colors;
 		canv.changeFirstLineEndPoint(firstLindEndPoint);
@@ -166,7 +166,10 @@ public class StitchWithWeavingTextForTutorials {
 		canv.paint(tempGraphics);
 
 		// getting bounds of horizo strings
-		Rectangle2D[] horizoBounds = canv.rectangleShapeHorizo;
+		Rectangle2D[] horizoBounds = new Rectangle2D[horizo.length];
+		for(int i=0; i<horizoBounds.length;i++){
+			horizoBounds[i]= canv.rectangleShapeHorizo[i];
+		}
 		BufferedImage[] horizo = canv.horizoRepresentedLines;
 		BufferedImage[] horizoBottom = canv.horizoRepresentedLinesBottom;
 		BufferedImage[] horizoTemp = canv.horizoRepresentedLines;
@@ -178,14 +181,36 @@ public class StitchWithWeavingTextForTutorials {
 
 		BufferedImage[] paralelBottom = canv.paralelRepresentedLinesBottom;
 		BufferedImage[] paralel = canv.paralelRepresentedLines;
-		Rectangle2D[] paralelBounds = canv.rectangleShapeParalel;
+		Rectangle2D[] paralelBounds = new Rectangle2D[paralel.length];
+		for(int i=0; i<paralelBounds.length;i++){
+			paralelBounds[i]= canv.rectangleShapeParalel[i];
+		}
 		BufferedImage[] paralelTemp = canv.paralelRepresentedLines;
 
-	//BufferedImage tempo = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		//tempo= horizo[1];
-	//horizo[1] = horizo[0];
-		//horizo[0] = tempo;
-	
+		try {
+			ImageIO.write(horizo[0], "png", new File("c://temp//" +"horizo0"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(horizo[1], "png", new File("c://temp//" +"horizo1"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(paralel[0], "png", new File("c://temp//" +"paralel0"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(paralel[1], "png", new File("c://temp//" +"paralel1"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BufferedImage crissImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
 		for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
@@ -265,6 +290,18 @@ public class StitchWithWeavingTextForTutorials {
 		
 		try {
 			ImageIO.write(horizo[0], "png", new File("c://temp//" +"horizo0"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(paralelBottom[0], "png", new File("c://temp//" +"paralelBottom0"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(paralelBottom[1], "png", new File("c://temp//" +"paralelBottom1"+ ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -561,9 +598,9 @@ public class StitchWithWeavingTextForTutorials {
 
 	public static BufferedImage drawShapeLineStarting(int a, int b, nodeLine paralelOrHorizo, BasicStroke strokeBorder,
 			int stringWidth, Color[] colors, int[] lastPoints) {
-		int width = 2 * a * MyPrintCanvasDiagram.length + 2 * MyPrintCanvasDiagram.x1
-				+ 2 * MyPrintCanvasDiagram.lengthOfStringEnd + 100;
-		int height = 2 * b * MyPrintCanvasDiagram.length + 2 * MyPrintCanvasDiagram.y1 + 100;
+		int width = 2 * a * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.x1
+				+ 2 * MyPrintCanvasTextDiagram.lengthOfStringEnd + 100;
+		int height = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
 
 		// recieving the color of the string
 		int indexParalelOrHorizo = listNodePoints.findNodePointIndex(paralelOrHorizo.nodeRed);
@@ -645,23 +682,23 @@ public class StitchWithWeavingTextForTutorials {
 		localwindow.setAutoRequestFocus(true);
 
 		int a = 1;
-		int b = 3;
-		MyPrintCanvasDiagram.a = a;
-		MyPrintCanvasDiagram.b = b;
+		int b = 1;
+		MyPrintCanvasTextDiagram.a = a;
+		MyPrintCanvasTextDiagram.b = b;
 		Color[] colors = new Color[1];
 		colors[0] = new Color(255, 244, 222);
 		nodePoint red = new nodePoint(50, 50, Color.BLACK);
 		nodePoint green = new nodePoint(100, 30, Color.BLACK);
 		nodeLine paralelOrHorizo = new nodeLine(red, green);
 		int[] lastPoints = new int[2];
-		lastPoints[0] = 100;
-		lastPoints[1] = 30;
+		lastPoints[0] = 200;
+		lastPoints[1] = 200;
 		BasicStroke stroke = new BasicStroke(stringWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 0.1F);
 		BasicStroke strokeBorder = new BasicStroke(stringWidth + 2 * recWidth, BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_BEVEL, 0.1F);
 
 		// int firstLineEndPoint = 2 * a + 2 * b + 2 * a - 3;
-		int firstLineEndPoint = 5;
+		int firstLineEndPoint =5;
 		int crissNumberOfLines = 1;
 		StitchWithWeavingTextForTutorials wea = new StitchWithWeavingTextForTutorials();
 		// checikng an example 
@@ -680,8 +717,8 @@ public class StitchWithWeavingTextForTutorials {
 		int alphaCorner = 0;// alpha (transparency) component 0...255
 		int colCorner = (alphaCorner << 24) | (redCorner << 16) | (greenCorner << 8) | blueCorner;
 		// width and height of the rectangle base of the stitch
-		int width = 2 * a * MyPrintCanvasDiagram.length;
-		int height = 2 * b * MyPrintCanvasDiagram.length;
+		int width = 2 * a * MyPrintCanvasTextDiagram.length;
+		int height = 2 * b * MyPrintCanvasTextDiagram.length;
 		int corner2 = 3;
 		int corner3 = 4;
 		result.setRGB(x1 - corner2, y1 - 1, colCorner);
