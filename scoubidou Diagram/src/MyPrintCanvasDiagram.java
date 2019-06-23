@@ -58,8 +58,8 @@ class MyPrintCanvasDiagram extends JComponent {
 	public static Boolean isPaintRectangle = true;
 	int lineStart = b;
 	int lineStartOp = a;
-	static int firstLineEndPoint = 1;
-	int crissNumberOfLines = 5;
+	static int firstLineEndPoint = 5;
+	int crissNumberOfLines =1;
 	Color firstColor = Color.RED;
 	Color secondColor = Color.BLACK;
 	// the line representations of horizo strings

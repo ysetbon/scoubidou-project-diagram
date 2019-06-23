@@ -68,9 +68,9 @@ public class StitchWithWeavingForTutorials {
 
 		horizo = stitchAlgoForPrintStitch.paralelReturnOneOptionOposite(l, crissNumberOfLines);
 		nodeLine temp = null;
-		temp = horizo[0];
+		/*temp = horizo[0];
 		horizo[0] = horizo[1];
-		horizo[1] = temp;
+		horizo[1] = temp;*/
 		paralel = new nodeLine[crossNumberOfLines];
 		paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
 		// changing paralel and horizo parameters to what we got here
@@ -231,9 +231,7 @@ public class StitchWithWeavingForTutorials {
 		}
 		for (int j = 1; j < horizo.length; j = j + 2) {
 			croppedSegments[croppedSegmentIndex] = CropImage.croppedIntersect(paralelEven, horizo[j], horizoBounds[j]);
-
 			croppedSegmentIndex++;
-
 		}
 		for (int i = 0; i < croppedSegments.length; i++) {
 			CropImage.addImage(crissImg, croppedSegments[i], 1, 0, 0);
@@ -252,6 +250,7 @@ public class StitchWithWeavingForTutorials {
 		BufferedImage seg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		for (int i = 0; i < croppedSegments.length; i++) {
 			CropImage.addImage(seg, croppedSegments[i], 1, 0, 0);
+		
 		}
 
 		////////////////////////////////////////////////// creates pictures for
@@ -265,7 +264,12 @@ public class StitchWithWeavingForTutorials {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		try {
+			ImageIO.write(horizoStarting[0], "png", new File("c://temp//" +"horizoStart0"+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		try {
 			ImageIO.write(horizo[1], "png", new File("c://temp//" +"horizo1"+ ".png"));
@@ -287,7 +291,7 @@ public class StitchWithWeavingForTutorials {
 		}
 		
 		int counterForFinalDiagrams = 0;
-		croppedSegments = new BufferedImage[paralel.length];
+	/*	croppedSegments = new BufferedImage[paralel.length];
 		BufferedImage horizoEven = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		
 		for (int i = 0; i < horizo.length; i = i + 2) {
@@ -311,7 +315,7 @@ public class StitchWithWeavingForTutorials {
 			for (int i = 1; i < horizo.length; i = i + 2) {
 			croppedSegments[j] = CropImage.croppedIntersect( paralel[j],horizo[i], paralelBounds[j]);
 			}
-		}
+		}*/
 		//finishing segments changing
 		/////////////////////////////
 		
@@ -370,9 +374,14 @@ public class StitchWithWeavingForTutorials {
 			}
 			
 			//adding cropped segements
-			for (int i = indexOfStitch-1; i >= 0; i--) {
+			for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
 				CropImage.addImage(crissImg, croppedSegments[i], 1, 0, 0);
-				
+				try {
+					ImageIO.write(croppedSegments[i], "png", new File("c://temp//" +"croppedSeg"+i+ ".png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}					
 			
 			try {
@@ -393,12 +402,12 @@ public class StitchWithWeavingForTutorials {
 			CropImage.addImage(crissImg, horizo[i], 1, 0, 0);
 		}
 		
-		for (int i =  canv.paralelRepresentedLines.length-1; i >= 0; i--) {
+		for (int i =  0; i <canv.paralelRepresentedLines.length; i++) {
 			CropImage.addImage(crissImg, paralel[i], 1, 0, 0);
 			
 		}
 		//adding cropped segements
-		for (int i =  canv.paralelRepresentedLines.length-1; i >= 0; i--) {
+		for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
 			CropImage.addImage(crissImg, croppedSegments[i], 1, 0, 0);
 			
 		}					
@@ -643,7 +652,7 @@ public class StitchWithWeavingForTutorials {
 		localwindow.setAutoRequestFocus(true);
 
 		int a = 1;
-		int b = 1;
+		int b =1;
 		MyPrintCanvasDiagram.a = a;
 		MyPrintCanvasDiagram.b = b;
 		Color[] colors = new Color[1];
@@ -659,7 +668,7 @@ public class StitchWithWeavingForTutorials {
 				BasicStroke.JOIN_BEVEL, 0.1F);
 
 		// int firstLineEndPoint = 2 * a + 2 * b + 2 * a - 3;
-		int firstLineEndPoint = 5;
+		int firstLineEndPoint =5;
 		int crissNumberOfLines = 1;
 		StitchWithWeavingForTutorials wea = new StitchWithWeavingForTutorials();
 		// checikng an example 

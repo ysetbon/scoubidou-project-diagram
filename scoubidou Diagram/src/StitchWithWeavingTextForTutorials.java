@@ -53,11 +53,11 @@ public class StitchWithWeavingTextForTutorials {
 
 		nodePoint[] allPoints = new nodePoint[k];
 		// getting all points
-		allPoints = listNodePoints.listOfNodePoints();
+		allPoints = listNodeTextPoints.listOfNodePoints();
 
 		nodeLine l = new nodeLine(allPoints[0], allPoints[firstLineEndPoint]);
 		nodeLine[] paralel = new nodeLine[crissNumberOfLines];
-		paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crissNumberOfLines);
+		paralel = stitchAlgoForPrintTextStitch.paralelReturnOneOption(l, crissNumberOfLines);
 		for (int i = 0; i < 2 * crissNumberOfLines; i++) {
 			if (paralel[i] == l) {
 				isLInside = true;
@@ -66,13 +66,13 @@ public class StitchWithWeavingTextForTutorials {
 
 		nodeLine[] horizo = null;
 
-		horizo = stitchAlgoForPrintStitch.paralelReturnOneOptionOposite(l, crissNumberOfLines);
+		horizo = stitchAlgoForPrintTextStitch.paralelReturnOneOptionOposite(l, crissNumberOfLines);
 		nodeLine temp = null;
-		temp = horizo[0];
+		/*temp = horizo[0];
 		horizo[0] = horizo[1];
-		horizo[1] = temp;
+		horizo[1] = temp;*/
 		paralel = new nodeLine[crossNumberOfLines];
-		paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
+		paralel = stitchAlgoForPrintTextStitch.paralelReturnOneOption(l, crossNumberOfLines);
 		// changing paralel and horizo parameters to what we got here
 		StitchWithWeavingTextForTutorials.paralel = paralel;
 		StitchWithWeavingTextForTutorials.horizo = horizo;
@@ -326,7 +326,7 @@ public class StitchWithWeavingTextForTutorials {
 		}
 		
 		int counterForFinalDiagrams = 0;
-		croppedSegments = new BufferedImage[paralel.length];
+	/*	croppedSegments = new BufferedImage[paralel.length];
 		BufferedImage horizoEven = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		
 		for (int i = 0; i < horizo.length; i = i + 2) {
@@ -350,7 +350,7 @@ public class StitchWithWeavingTextForTutorials {
 			for (int i = 1; i < horizo.length; i = i + 2) {
 			croppedSegments[j] = CropImage.croppedIntersect( paralel[j],horizo[i], paralelBounds[j]);
 			}
-		}
+		}*/
 		//finishing segments changing
 		/////////////////////////////
 		
@@ -409,9 +409,14 @@ public class StitchWithWeavingTextForTutorials {
 			}
 			
 			//adding cropped segements
-			for (int i = indexOfStitch-1; i >= 0; i--) {
+			for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
 				CropImage.addImage(crissImg, croppedSegments[i], 1, 0, 0);
-				
+				try {
+					ImageIO.write(croppedSegments[i], "png", new File("c://temp//" +"croppedSeg"+i+ ".png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}					
 			
 			try {
@@ -432,12 +437,12 @@ public class StitchWithWeavingTextForTutorials {
 			CropImage.addImage(crissImg, horizo[i], 1, 0, 0);
 		}
 		
-		for (int i =  canv.paralelRepresentedLines.length-1; i >= 0; i--) {
+		for (int i =  0; i <canv.paralelRepresentedLines.length; i++) {
 			CropImage.addImage(crissImg, paralel[i], 1, 0, 0);
 			
 		}
 		//adding cropped segements
-		for (int i =  canv.paralelRepresentedLines.length-1; i >= 0; i--) {
+		for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
 			CropImage.addImage(crissImg, croppedSegments[i], 1, 0, 0);
 			
 		}					
@@ -603,7 +608,7 @@ public class StitchWithWeavingTextForTutorials {
 		int height = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
 
 		// recieving the color of the string
-		int indexParalelOrHorizo = listNodePoints.findNodePointIndex(paralelOrHorizo.nodeRed);
+		int indexParalelOrHorizo = listNodeTextPoints.findNodePointIndex(paralelOrHorizo.nodeRed);
 		// circle edges
 		BufferedImage imageRectangleBorder = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics2DRecBorder = imageRectangleBorder.createGraphics();

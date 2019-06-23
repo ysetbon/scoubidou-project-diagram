@@ -117,10 +117,10 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		int k = 4 * a + 4 * b;
 
 		nodePoint[] allPoints = new nodePoint[k];
-		allPoints = listNodePoints.listOfNodePoints();
+		allPoints = listNodeTextPoints.listOfNodePoints();
 		nodeLine l = new nodeLine(allPoints[0], allPoints[firstLineEndPoint]);
-		int inbetweenPoints = listNodePoints.pointsInBetween(l.nodeGreen, l.nodeRed);
-		int inbetweenPointsSmall = listNodePoints.pointsInBetween(l.nodeRed, l.nodeGreen);
+		int inbetweenPoints = listNodeTextPoints.pointsInBetween(l.nodeGreen, l.nodeRed);
+		int inbetweenPointsSmall = listNodeTextPoints.pointsInBetween(l.nodeRed, l.nodeGreen);
 
 		if ((crissNumberOfLine >= (inbetweenPoints / 2)) || (crissNumberOfLine >= (inbetweenPointsSmall / 2))) {
 			if (firstLineEndPoint <= 2 * a + 2 * b - 1) {
@@ -313,13 +313,13 @@ class MyPrintCanvasTextDiagram extends JComponent {
 
 			nodePoint[] allPoints = new nodePoint[k];
 			// getting all points
-			allPoints = listNodePoints.listOfNodePoints();
+			allPoints = listNodeTextPoints.listOfNodePoints();
 
 			nodeLine l = new nodeLine(allPoints[0], allPoints[firstLineEndPoint]);
 
 			if (isCrissWeave == true) {
 				nodeLine[] horizo = null;
-				horizo = stitchAlgoForPrintStitch.paralelReturnOneOptionOposite(l, crissNumberOfLines);
+				horizo = stitchAlgoForPrintTextStitch.paralelReturnOneOptionOposite(l, crissNumberOfLines);
 				// node points the bottom and top of the string
 				horizoBottom = new nodeLine[horizo.length];
 				horizoTop = new nodeLine[horizo.length];
@@ -395,7 +395,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 			if (isCrissWeave == false) {
 
 				nodeLine[] paralel = new nodeLine[crossNumberOfLines];
-				paralel = stitchAlgoForPrintStitch.paralelReturnOneOption(l, crossNumberOfLines);
+				paralel = stitchAlgoForPrintTextStitch.paralelReturnOneOption(l, crossNumberOfLines);
 
 				paralelBottom = new nodeLine[paralel.length];
 				paralelTop = new nodeLine[paralel.length];
@@ -482,7 +482,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		int height = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
 
 		// recieving the color of the string
-		int indexParalelOrHorizo = listNodePoints.findNodePointIndex(paralelOrHorizo.nodeRed);
+		int indexParalelOrHorizo = listNodeTextPoints.findNodePointIndex(paralelOrHorizo.nodeRed);
 
 		// circle edges
 		BufferedImage imageCircleBorder = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
