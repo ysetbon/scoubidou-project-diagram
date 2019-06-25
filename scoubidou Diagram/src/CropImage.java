@@ -23,8 +23,8 @@ public class CropImage {
 		BufferedImage overResult = addTransparant(over);
 		int[][] arrayOver = convertTo2DUsingGetRGB(over);
 		
-			for (int y = (int) bounds.getY()-40; y < (int)(bounds.getHeight()+bounds.getY()+40); y++) {
-				for (int x = (int) bounds.getX()-40; x < (int)(bounds.getWidth()+bounds.getX()+40); x++) {
+			for (int y = (int) bounds.getY(); y < (int)(bounds.getHeight()+bounds.getY()); y++) {
+				for (int x = (int) bounds.getX(); x < (int)(bounds.getWidth()+bounds.getX()); x++) {
 				int colorUnder = under.getRGB(x, y);
 				int alphaUnder = (colorUnder >> 24) & 0xff;
 				int colorOver = over.getRGB(x, y);

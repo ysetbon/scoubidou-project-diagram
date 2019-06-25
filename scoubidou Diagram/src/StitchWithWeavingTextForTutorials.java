@@ -251,7 +251,6 @@ public class StitchWithWeavingTextForTutorials {
 			CropImage.addImage(paralelOdd, paralel[i], 1, 0, 0);
 		}
 
-		System.out.println("horizo-" + horizo.length + "paralel-" + paralel.length);
 		int croppedSegmentIndex = 0;
 		for (int j = 0; j < horizo.length; j = j + 2) {
 
@@ -268,7 +267,25 @@ public class StitchWithWeavingTextForTutorials {
 		for (int i = 0; i < croppedSegments.length; i++) {
 			CropImage.addImage(crissImg, croppedSegments[i], 1, 0, 0);
 		}
-		System.out.println("cropped segemnts is " + croppedSegments.length);
+		
+		try {
+			ImageIO.write(horizo[0], "png", new File("c://temp//" + "horizo0"+".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(horizo[0], "png", new File("c://temp//" + "horizo1"+".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ImageIO.write(CropImage.croppedIntersect(paralel[0], horizo[0], paralelBounds[0]), "png", new File("c://temp//" + "segment00"+".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/////////////////////
 		// final picture
 		BufferedImage returnImg = crissImg;
@@ -404,6 +421,10 @@ public class StitchWithWeavingTextForTutorials {
 				CropImage.addImage(crissImg, paralelBottom[i], 1, 0, 0);
 			//	CropImage.addImage(crissImg, horizoStarting[i], 1, 0, 0);
 			}
+			for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
+				CropImage.addImage(crissImg, horizoBottom[i], 1, 0, 0);
+			//	CropImage.addImage(crissImg, horizoStarting[i], 1, 0, 0);
+			}
 			CropImage.addImage(crissImg, recImg, 1, 0, 0);
 			// adding all horizo strings
 			for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
@@ -437,9 +458,16 @@ public class StitchWithWeavingTextForTutorials {
 		
 		////////painting last stitch
 		crissImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
+			CropImage.addImage(crissImg, horizoBottom[i], 1, 0, 0);
+		}
 		
+		for (int i =  0; i <canv.paralelRepresentedLines.length; i++) {
+			CropImage.addImage(crissImg, paralelBottom[i], 1, 0, 0);
+			
+		}
 		CropImage.addImage(crissImg, recImg, 1, 0, 0);
-		// adding all horizo strings
+		
 		for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
 			CropImage.addImage(crissImg, horizo[i], 1, 0, 0);
 		}

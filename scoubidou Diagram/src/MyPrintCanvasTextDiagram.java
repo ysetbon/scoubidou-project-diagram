@@ -332,41 +332,85 @@ class MyPrintCanvasTextDiagram extends JComponent {
 				horizoSegmentVerticle = new Line2D.Float[horizo.length];
 				horizoArea = new Area[horizo.length];
 
-			
 				float[] numbersOfTextHorizo = new float[horizo.length * 4];
+				float[] numbersOfTextHorizoDelta = new float[horizo.length * 2];
+
 				Scanner fileScannerHorizo;
+				Scanner fileScannerHorizoDelta;
 				try {
 					fileScannerHorizo = new Scanner(new File("c://temp//text_files//" + "horizoPlain"
 							+ firstLineEndPoint + "_" + crissNumberOfLines + "_" + a + "_" + b + ".csv"));
-					fileScannerHorizo.useDelimiter("\n");		
+					fileScannerHorizo.useDelimiter("\n");
 					fileScannerHorizo.next();
 					String horizoCsvFloat = fileScannerHorizo.next();
-					for (int i = 0; i < numbersOfTextHorizo.length-1; i++) {									
+
+					fileScannerHorizoDelta = new Scanner(new File("c://temp//text_files//" + "horizoPlainDelta"
+							+ firstLineEndPoint + "_" + crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+					fileScannerHorizoDelta.useDelimiter("\n");
+					fileScannerHorizoDelta.next();
+					for (int i = 0; i < numbersOfTextHorizo.length - 1; i++) {
 						System.out.println(horizoCsvFloat);
-						numbersOfTextHorizo[i] = Float.parseFloat(horizoCsvFloat);	
-						 horizoCsvFloat = fileScannerHorizo.next();
+						numbersOfTextHorizo[i] = Float.parseFloat(horizoCsvFloat);
+						horizoCsvFloat = fileScannerHorizo.next();
 					}
-					//adding the last node number
-					numbersOfTextHorizo[numbersOfTextHorizo.length-1] = Float.parseFloat(horizoCsvFloat);	
+					// adding the last node number
+					numbersOfTextHorizo[numbersOfTextHorizo.length - 1] = Float.parseFloat(horizoCsvFloat);
 					int indexTextHorizo = 0;
+					/// now adding the delta numbers
+					String horizoCsvFloatDelta = fileScannerHorizoDelta.next();
+					for (int i = 0; i < numbersOfTextHorizoDelta.length - 1; i++) {
+						numbersOfTextHorizoDelta[i] = Float.parseFloat(horizoCsvFloatDelta);
+						horizoCsvFloatDelta = fileScannerHorizoDelta.next();
+					}
+
+					// adding the last node number
+					numbersOfTextHorizoDelta[numbersOfTextHorizoDelta.length - 1] = Float
+							.parseFloat(horizoCsvFloatDelta);
+
+					// now adding delta numbers to the numberOfText numbers
+
+					int indexDelta = 0;
+
+					for (int i = 0; i < numbersOfTextHorizoDelta.length; i++) {
+						numbersOfTextHorizo[indexDelta] = numbersOfTextHorizo[indexDelta] + numbersOfTextHorizoDelta[i];
+						indexDelta++;
+					}
+					indexDelta = numbersOfTextHorizo.length - 4;
+					int j = 0;
+					for (int i = 0; i < numbersOfTextHorizoDelta.length / 4; i++) {
+						numbersOfTextHorizo[indexDelta] = numbersOfTextHorizo[indexDelta] - numbersOfTextHorizoDelta[j];
+						numbersOfTextHorizo[indexDelta + 1] = numbersOfTextHorizo[indexDelta + 1]
+								- numbersOfTextHorizoDelta[j + 1];
+						numbersOfTextHorizo[indexDelta+2] = numbersOfTextHorizo[indexDelta+2] - numbersOfTextHorizoDelta[j+2];
+						numbersOfTextHorizo[indexDelta + 3] = numbersOfTextHorizo[indexDelta + 3]
+								- numbersOfTextHorizoDelta[j + 3];
+						indexDelta = indexDelta - 4;
+						j= j+4;
+					}
+
+					indexDelta = 0;
+
 					for (int i = 0; i < horizo.length; i = i + 1) {
 
-						horizoRepresentedLines[i] = drawShapeLineStatic(true, horizo[i], numbersOfTextHorizo[indexTextHorizo],
-								numbersOfTextHorizo[indexTextHorizo + 1], numbersOfTextHorizo[indexTextHorizo + 2], numbersOfTextHorizo[indexTextHorizo + 3],
+						horizoRepresentedLines[i] = drawShapeLineStatic(true, horizo[i],
+								numbersOfTextHorizo[indexTextHorizo], numbersOfTextHorizo[indexTextHorizo + 1],
+								numbersOfTextHorizo[indexTextHorizo + 2], numbersOfTextHorizo[indexTextHorizo + 3],
 								strokeBorder, stroke, stringWidth, i, colors);
 						if ((horizo[i].nodeRed.x != numbersOfTextHorizo[indexTextHorizo])
 								|| (horizo[i].nodeRed.y != numbersOfTextHorizo[indexTextHorizo + 1])) {
-							horizoRepresentedLinesBottom[i] = drawShapeBottomLineStatic(true, horizo[i], horizo[i].nodeRed.x,
-									horizo[i].nodeRed.y, numbersOfTextHorizo[indexTextHorizo], numbersOfTextHorizo[indexTextHorizo + 1],
-									strokeBorder, stroke, stringWidth, i, colors);
-						}
-						else{
+							horizoRepresentedLinesBottom[i] = drawShapeBottomLineStatic(true, horizo[i],
+									horizo[i].nodeRed.x, horizo[i].nodeRed.y, numbersOfTextHorizo[indexTextHorizo],
+									numbersOfTextHorizo[indexTextHorizo + 1], strokeBorder, stroke, stringWidth, i,
+									colors);
+						} else {
 							int widthHorizo = 2 * a * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.x1
 									+ 2 * MyPrintCanvasTextDiagram.lengthOfStringEnd + 100;
-							int heightHorizo = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
-							horizoRepresentedLinesBottom[i] =  new BufferedImage(widthHorizo, heightHorizo, BufferedImage.TYPE_INT_ARGB);
+							int heightHorizo = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1
+									+ 100;
+							horizoRepresentedLinesBottom[i] = new BufferedImage(widthHorizo, heightHorizo,
+									BufferedImage.TYPE_INT_ARGB);
 						}
-						indexTextHorizo = indexTextHorizo +4;
+						indexTextHorizo = indexTextHorizo + 4;
 					}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -394,40 +438,88 @@ class MyPrintCanvasTextDiagram extends JComponent {
 				paralelArea = new Area[paralel.length];
 
 				float[] numbersOfTextParalel = new float[paralel.length * 4];
+				float[] numbersOfTextParalelDelta = new float[paralel.length * 2];
 				Scanner fileScannerParalel;
+				Scanner fileScannerParalelDelta;
 				try {
+					///////////////////////////////////////////////
 					fileScannerParalel = new Scanner(new File("c://temp//text_files//" + "paralelPlain"
 							+ firstLineEndPoint + "_" + crissNumberOfLines + "_" + a + "_" + b + ".csv"));
-					fileScannerParalel.useDelimiter("\n");		
+					fileScannerParalel.useDelimiter("\n");
 					fileScannerParalel.next();
+
+					fileScannerParalelDelta = new Scanner(new File("c://temp//text_files//" + "paralelPlainDelta"
+							+ firstLineEndPoint + "_" + crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+					fileScannerParalelDelta.useDelimiter("\n");
+					fileScannerParalelDelta.next();
+
 					String paralelCsvFloat = fileScannerParalel.next();
-					for (int i = 0; i < numbersOfTextParalel.length-1; i++) {									
+					for (int i = 0; i < numbersOfTextParalel.length - 1; i++) {
 						System.out.println(paralelCsvFloat);
-						numbersOfTextParalel[i] = Float.parseFloat(paralelCsvFloat);	
-						 paralelCsvFloat = fileScannerParalel.next();
+						numbersOfTextParalel[i] = Float.parseFloat(paralelCsvFloat);
+						paralelCsvFloat = fileScannerParalel.next();
 					}
-					//adding the last node number
-					numbersOfTextParalel[numbersOfTextParalel.length-1] = Float.parseFloat(paralelCsvFloat);	
+					// adding the last node number
+					numbersOfTextParalel[numbersOfTextParalel.length - 1] = Float.parseFloat(paralelCsvFloat);
 					int indexTextParalel = 0;
+
+					/// now adding the delta numbers
+					String paralelCsvFloatDelta = fileScannerParalelDelta.next();
+					for (int i = 0; i < numbersOfTextParalelDelta.length - 1; i++) {
+						numbersOfTextParalelDelta[i] = Float.parseFloat(paralelCsvFloatDelta);
+						paralelCsvFloatDelta = fileScannerParalelDelta.next();
+					}
+
+					// adding the last node number
+					numbersOfTextParalelDelta[numbersOfTextParalelDelta.length - 1] = Float
+							.parseFloat(paralelCsvFloatDelta);
+
+					// now adding delta numbers to the numberOfText numbers
+
+					int indexDelta = 0;
+					for (int i = 0; i < numbersOfTextParalelDelta.length; i++) {
+						numbersOfTextParalel[indexDelta] = numbersOfTextParalel[indexDelta]
+								+ numbersOfTextParalelDelta[i];
+						indexDelta++;
+					}
+					indexDelta = numbersOfTextParalel.length - 4;
+					int j = 0;
+					for (int i = 0; i < numbersOfTextParalelDelta.length / 4; i++) {
+						numbersOfTextParalel[indexDelta] = numbersOfTextParalel[indexDelta]
+								- numbersOfTextParalelDelta[j];
+						numbersOfTextParalel[indexDelta + 1] = numbersOfTextParalel[indexDelta + 1]
+								- numbersOfTextParalelDelta[j + 1];
+						numbersOfTextParalel[indexDelta+2] = numbersOfTextParalel[indexDelta+2]
+								- numbersOfTextParalelDelta[j+2];
+						numbersOfTextParalel[indexDelta + 3] = numbersOfTextParalel[indexDelta + 3]
+								- numbersOfTextParalelDelta[j + 3];
+						indexDelta = indexDelta - 4;
+						j = j+4;
+					}
+
+					/////////////////////////////////////////////////////////////
 
 					for (int i = 0; i < paralel.length; i = i + 1) {
 
-						paralelRepresentedLines[i] = drawShapeLineStatic(false, paralel[i], numbersOfTextParalel[indexTextParalel],
-								numbersOfTextParalel[indexTextParalel + 1], numbersOfTextParalel[indexTextParalel + 2], numbersOfTextParalel[indexTextParalel + 3],
+						paralelRepresentedLines[i] = drawShapeLineStatic(false, paralel[i],
+								numbersOfTextParalel[indexTextParalel], numbersOfTextParalel[indexTextParalel + 1],
+								numbersOfTextParalel[indexTextParalel + 2], numbersOfTextParalel[indexTextParalel + 3],
 								strokeBorder, stroke, stringWidth, i, colors);
 						if ((paralel[i].nodeRed.x != numbersOfTextParalel[indexTextParalel])
 								|| (paralel[i].nodeRed.y != numbersOfTextParalel[indexTextParalel + 1])) {
-							paralelRepresentedLinesBottom[i] = drawShapeBottomLineStatic(false, paralel[i], paralel[i].nodeRed.x,
-									paralel[i].nodeRed.y, numbersOfTextParalel[indexTextParalel], numbersOfTextParalel[indexTextParalel+1],
-									strokeBorder, stroke, stringWidth, i, colors);
-						}
-						else{
+							paralelRepresentedLinesBottom[i] = drawShapeBottomLineStatic(false, paralel[i],
+									paralel[i].nodeRed.x, paralel[i].nodeRed.y, numbersOfTextParalel[indexTextParalel],
+									numbersOfTextParalel[indexTextParalel + 1], strokeBorder, stroke, stringWidth, i,
+									colors);
+						} else {
 							int widthParalel = 2 * a * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.x1
 									+ 2 * MyPrintCanvasTextDiagram.lengthOfStringEnd + 100;
-							int heightParalel = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
-							paralelRepresentedLinesBottom[i] =  new BufferedImage(widthParalel, heightParalel, BufferedImage.TYPE_INT_ARGB);
+							int heightParalel = 2 * b * MyPrintCanvasTextDiagram.length
+									+ 2 * MyPrintCanvasTextDiagram.y1 + 100;
+							paralelRepresentedLinesBottom[i] = new BufferedImage(widthParalel, heightParalel,
+									BufferedImage.TYPE_INT_ARGB);
 						}
-						indexTextParalel = indexTextParalel+4;
+						indexTextParalel = indexTextParalel + 4;
 					}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -508,15 +600,13 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		float x_tangent = ((float) stringWidth) / 2;
 		float y_tangent = 0;
 		if (x != x2) {
-			float tangentOfParalelOrHorizo = (float) (Math
-					.atan(((float) (y - y2)) / (x - x2)));
+			float tangentOfParalelOrHorizo = (float) (Math.atan(((float) (y - y2)) / (x - x2)));
 			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
 			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
 			System.out.println("x_tangent- " + x_tangent);
 		}
 
-		GradientPaint darkShade = new GradientPaint(x + x_tangent,
-				y - y_tangent, tempColor, x - x_tangent,
+		GradientPaint darkShade = new GradientPaint(x + x_tangent, y - y_tangent, tempColor, x - x_tangent,
 				y + y_tangent, tempColorDarker);
 
 		graphics2DCircleBorder.setPaint(darkShade);
@@ -529,8 +619,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		y_tangent = 0;
 		// changing tangent a little for making sure strings won't intersect
 		if (x != x2) {
-			float tangentOfParalelOrHorizo = (float) (Math
-					.atan(((float) (y - y2)) / (x- x2)));
+			float tangentOfParalelOrHorizo = (float) (Math.atan(((float) (y - y2)) / (x - x2)));
 			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
 			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
 			System.out.println("x_tangent- " + x_tangent);
@@ -569,12 +658,18 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		borderOfShape.lineTo(x + x_tangent, y - y_tangent);
 		borderOfShape.closePath();
 
+		// making a rec2d with borders of pictures
+		Rectangle2D imageRec = new Rectangle2D.Float();
+		imageRec.setFrame(0, 0, width, height);
 		if (isHorizo == true) {
-			rectangleShapeHorizo[i] = shape.getBounds2D();
+
+			// rectangleShapeHorizo[i] = shape.getBounds2D();
+			rectangleShapeHorizo[i] = imageRec;
 			horizoArea[i] = new Area(borderOfShape);
 		}
 		if (isHorizo == false) {
-			rectangleShapeParalel[i] = shape.getBounds2D();
+			// rectangleShapeParalel[i] = shape.getBounds2D();
+			rectangleShapeParalel[i] = imageRec;
 			paralelArea[i] = new Area(borderOfShape);
 		}
 
@@ -595,8 +690,9 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		return imageCircleBorder;
 
 	}
-	public BufferedImage drawShapeBottomLineStatic(boolean isHorizo, nodeLine paralelOrHorizo, float x, float y, float x2,
-			float y2, BasicStroke strokeBorder, BasicStroke stroke, int stringWidth, int i, Color[] colors) {
+
+	public BufferedImage drawShapeBottomLineStatic(boolean isHorizo, nodeLine paralelOrHorizo, float x, float y,
+			float x2, float y2, BasicStroke strokeBorder, BasicStroke stroke, int stringWidth, int i, Color[] colors) {
 		int width = 2 * a * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.x1
 				+ 2 * MyPrintCanvasTextDiagram.lengthOfStringEnd + 100;
 		int height = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
@@ -643,15 +739,13 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		float x_tangent = ((float) stringWidth) / 2;
 		float y_tangent = 0;
 		if (x != x2) {
-			float tangentOfParalelOrHorizo = (float) (Math
-					.atan(((float) (y - y2)) / (x - x2)));
+			float tangentOfParalelOrHorizo = (float) (Math.atan(((float) (y - y2)) / (x - x2)));
 			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
 			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
 			System.out.println("x_tangent- " + x_tangent);
 		}
 
-		GradientPaint darkShade = new GradientPaint(x + x_tangent,
-				y - y_tangent, tempColor, x - x_tangent,
+		GradientPaint darkShade = new GradientPaint(x + x_tangent, y - y_tangent, tempColor, x - x_tangent,
 				y + y_tangent, tempColorDarker);
 
 		graphics2DCircleBorder.setPaint(darkShade);
@@ -664,12 +758,11 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		y_tangent = 0;
 		// changing tangent a little for making sure strings won't intersect
 		if (x != x2) {
-			float tangentOfParalelOrHorizo = (float) (Math
-					.atan(((float) (y - y2)) / (x- x2)));
+			float tangentOfParalelOrHorizo = (float) (Math.atan(((float) (y - y2)) / (x - x2)));
 			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
 			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
-			System.out.println("bottom first point" + (x2+x_tangent)+","+(y2-y_tangent));
-			System.out.println("bottom second point"+ (x2-x_tangent)+","+(y2+y_tangent));
+			System.out.println("bottom first point" + (x2 + x_tangent) + "," + (y2 - y_tangent));
+			System.out.println("bottom second point" + (x2 - x_tangent) + "," + (y2 + y_tangent));
 		}
 
 		// rectangle edges
@@ -705,21 +798,12 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		borderOfShape.lineTo(x + x_tangent, y - y_tangent);
 		borderOfShape.closePath();
 
-		if (isHorizo == true) {
-			rectangleShapeHorizo[i] = shape.getBounds2D();
-			horizoArea[i] = new Area(borderOfShape);
-		}
-		if (isHorizo == false) {
-			rectangleShapeParalel[i] = shape.getBounds2D();
-			paralelArea[i] = new Area(borderOfShape);
-		}
-
 		float middlex = ((float) (x + x2)) / 2;
 		float middley = ((float) (y + y2)) / 2;
 
 		imageRectangleBorder = CropCircleImage.cropInverse(imageRectangleBorder, (int) x2, (int) y2, stringWidth);
 
-		//CropImage.addImage(imageCircleBorder, imageRectangleBorder, 1, 0, 0);
+		// CropImage.addImage(imageCircleBorder, imageRectangleBorder, 1, 0, 0);
 		// writes down the three points of the line to log
 		System.out.println("[" + isHorizo + "," + i + "," + x2 + "," + y2 + "]");
 		try {
@@ -731,6 +815,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		return imageCircleBorder;
 
 	}
+
 	/**
 	 * Converts a given Image into a BufferedImage
 	 *

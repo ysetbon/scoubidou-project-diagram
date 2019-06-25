@@ -377,62 +377,48 @@ class MyPrintCanvasDiagram extends JComponent {
 				// a plain text file with the same cotent as
 				// above///////////////////////////////////////////////////////////////////////
 				PrintWriter fileTextHorizoPlain = null;
+				PrintWriter fileTextHorizoPlainDelta = null;
 				try {
 					fileTextHorizoPlain = new PrintWriter(new File("c://temp//text_files//" + "horizoPlain" + firstLineEndPoint + "_"
+							+ crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+					fileTextHorizoPlainDelta = new PrintWriter(new File("c://temp//text_files//" + "horizoPlainDelta" + firstLineEndPoint + "_"
 							+ crissNumberOfLines + "_" + a + "_" + b + ".csv"));
 				} catch (FileNotFoundException e) {
 				    e.printStackTrace();
 				}
 				StringBuilder builderHorizo = new StringBuilder();
 				String ColumnNamesListHorizo = "nodes";
+				
+				StringBuilder builderHorizoDelta = new StringBuilder();
+				String ColumnNamesListHorizoDelta = "nodes";
 				// No need give the headers Like: id, Name on builder.append
 				builderHorizo.append(ColumnNamesListHorizo +"\n");
+				builderHorizoDelta.append(ColumnNamesListHorizoDelta +"\n");
+
 				for (int i = 0; i < horizo.length; i++) {
-					builderHorizo.append(horizoTop[i].nodeRed.x);
+					builderHorizo.append(horizoTop[i].nodeRed.x);					
 					builderHorizo.append('\n');
-					builderHorizo.append(horizoTop[i].nodeRed.y);
+					
+					builderHorizoDelta.append(0);					
+					builderHorizoDelta.append('\n');
+					
+					builderHorizo.append(horizoTop[i].nodeRed.y);					
 					builderHorizo.append('\n');
+					
+					builderHorizoDelta.append(0);					
+					builderHorizoDelta.append('\n');
+					
 					builderHorizo.append(horizoTop[i].nodeGreen.x);
 					builderHorizo.append('\n');
+												
 					builderHorizo.append(horizoTop[i].nodeGreen.y);
 					builderHorizo.append('\n');
+					
 				}
 				fileTextHorizoPlain.write(builderHorizo.toString());
 				fileTextHorizoPlain.close();
-				/*File fileTextHorizoPlain = new File("c://temp//text_files//" + "horizoPlain" + firstLineEndPoint + "_"
-						+ crissNumberOfLines + "_" + a + "_" + b + ".txt");
-
-				// Create the file
-				try {
-					if (fileTextHorizoPlain.createNewFile()) {
-						System.out.println("File is created!");
-					} else {
-						fileTextHorizoPlain = new File("c://temp//text_files//" + "horizoPlain" + firstLineEndPoint + "_"
-								+ crissNumberOfLines + "_" + a + "_" + b + ".txt");
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				// Write Content
-				PrintStream fileStreamHorizoPlain;
-				try {
-					fileStreamHorizoPlain = new PrintStream(fileTextHorizoPlain);
-					for (int i = 0; i < horizo.length; i++) {
-						fileStreamHorizoPlain.println(horizoTop[i].nodeRed.x);
-						fileStreamHorizoPlain.println(horizoTop[i].nodeRed.y);
-						fileStreamHorizoPlain.println(horizoTop[i].nodeGreen.x);
-						fileStreamHorizoPlain.println(horizoTop[i].nodeGreen.y);
-
-					}
-				}
-
-				catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-
-				
+				fileTextHorizoPlainDelta.write(builderHorizoDelta.toString());
+				fileTextHorizoPlainDelta.close();							
 				System.out.println("crissNuberOfLines-" + crissNumberOfLines);
 
 			}
@@ -499,28 +485,53 @@ class MyPrintCanvasDiagram extends JComponent {
 				// a plain text file with the same cotent as
 				// above///////////////////////////////////////////////////////////////////////
 				PrintWriter fileTextParalelPlain = null;
+				PrintWriter fileTextParalelPlainDelta = null;
+
 				try {
 					fileTextParalelPlain = new PrintWriter(new File("c://temp//text_files//" + "paralelPlain" + firstLineEndPoint + "_"
 							+ crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+					fileTextParalelPlainDelta = new PrintWriter(new File("c://temp//text_files//" + "paralelPlainDelta" + firstLineEndPoint + "_"
+							+ crissNumberOfLines + "_" + a + "_" + b + ".csv"));
+					
 				} catch (FileNotFoundException e) {
 				    e.printStackTrace();
 				}
 				StringBuilder builderParalel = new StringBuilder();
 				String ColumnNamesListParalel = "nodes";
+				
+				StringBuilder builderParalelDelta = new StringBuilder();
+				String ColumnNamesListParalelDelta = "nodes";
 				// No need give the headers Like: id, Name on builder.append
 				builderParalel.append(ColumnNamesListParalel +"\n");
+				builderParalelDelta.append(ColumnNamesListParalelDelta +"\n");
 				for (int i = 0; i < paralel.length; i++) {
 					builderParalel.append(paralelTop[i].nodeRed.x);
 					builderParalel.append('\n');
+					
+					builderParalelDelta.append(0);
+					builderParalelDelta.append('\n');
+					
 					builderParalel.append(paralelTop[i].nodeRed.y);
 					builderParalel.append('\n');
+					
+					builderParalelDelta.append(0);
+					builderParalelDelta.append('\n');
+					
 					builderParalel.append(paralelTop[i].nodeGreen.x);
 					builderParalel.append('\n');
+					
+				
+					
 					builderParalel.append(paralelTop[i].nodeGreen.y);
 					builderParalel.append('\n');
+					
+				
 				}
 				fileTextParalelPlain.write(builderParalel.toString());
 				fileTextParalelPlain.close();
+				
+				fileTextParalelPlainDelta.write(builderParalelDelta.toString());
+				fileTextParalelPlainDelta.close();
 			}
 
 		}
