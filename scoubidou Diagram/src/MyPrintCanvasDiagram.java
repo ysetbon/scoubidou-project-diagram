@@ -36,7 +36,7 @@ class MyPrintCanvasDiagram extends JComponent {
 	// x, a can be changeable
 	public static int a = 1;
 	// y, b can be changeable
-	public static int b = 1;
+	public static int b = 3;
 	public static int lengthOfStringEnd = 50;
 
 	// spaces in-between 2 lines
@@ -333,9 +333,7 @@ class MyPrintCanvasDiagram extends JComponent {
 			horizoSegmentDown = new Line2D.Float[horizo.length];
 			horizoSegmentUp = new Line2D.Float[horizo.length];
 			horizoSegmentVerticle = new Line2D.Float[horizo.length];
-			horizoArea = new Area[horizo.length];
-
-		
+			horizoArea = new Area[horizo.length];		
 
 			// if we need to paint Criss
 			if (isCrissWeave == true) {

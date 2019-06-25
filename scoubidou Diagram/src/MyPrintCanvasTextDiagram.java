@@ -32,7 +32,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 	// x, a can be changeable
 	public static int a = 1;
 	// y, b can be changeable
-	public static int b = 1;
+	public static int b = 3;
 	public static int lengthOfStringEnd = 50;
 
 	// spaces in-between 2 lines
@@ -332,22 +332,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 				horizoSegmentVerticle = new Line2D.Float[horizo.length];
 				horizoArea = new Area[horizo.length];
 
-				/*
-				 * InputStream isHorizo =
-				 * this.getClass().getResourceAsStream("c://temp//text_files//"
-				 * + "horizoPlain" + firstLineEndPoint + "_" +
-				 * crissNumberOfLines + "_" + a + "_" + b + ".txt");
-				 * System.out.println("c://temp//text_files//" + "horizoPlain" +
-				 * firstLineEndPoint + "_" + crissNumberOfLines + "_" + a + "_"
-				 * + b + ".txt"); float[] numbersOfTextHorizo;
-				 * numbersOfTextHorizo = new float[horizo.length*4]; Scanner
-				 * fileScannerHorizo = new Scanner("c://temp//text_files//" +
-				 * "horizoPlain" + firstLineEndPoint + "_" + crissNumberOfLines
-				 * + "_" + a + "_" + b + ".txt"); for (int i = 0;
-				 * fileScannerHorizo.hasNextFloat(); i++) {
-				 * numbersOfTextHorizo[i] = (float)
-				 * fileScannerHorizo.nextDouble(); } fileScannerHorizo.close();
-				 */
+			
 				float[] numbersOfTextHorizo = new float[horizo.length * 4];
 				Scanner fileScannerHorizo;
 				try {
@@ -371,8 +356,8 @@ class MyPrintCanvasTextDiagram extends JComponent {
 								strokeBorder, stroke, stringWidth, i, colors);
 						if ((horizo[i].nodeRed.x != numbersOfTextHorizo[indexTextHorizo])
 								|| (horizo[i].nodeRed.y != numbersOfTextHorizo[indexTextHorizo + 1])) {
-							horizoRepresentedLinesBottom[i] = drawShapeLineStatic(true, horizo[indexTextHorizo], numbersOfTextHorizo[indexTextHorizo],
-									numbersOfTextHorizo[indexTextHorizo+1], numbersOfTextHorizo[indexTextHorizo + 2], numbersOfTextHorizo[indexTextHorizo + 3],
+							horizoRepresentedLinesBottom[i] = drawShapeBottomLineStatic(true, horizo[i], horizo[i].nodeRed.x,
+									horizo[i].nodeRed.y, numbersOfTextHorizo[indexTextHorizo], numbersOfTextHorizo[indexTextHorizo + 1],
 									strokeBorder, stroke, stringWidth, i, colors);
 						}
 						else{
@@ -432,8 +417,8 @@ class MyPrintCanvasTextDiagram extends JComponent {
 								strokeBorder, stroke, stringWidth, i, colors);
 						if ((paralel[i].nodeRed.x != numbersOfTextParalel[indexTextParalel])
 								|| (paralel[i].nodeRed.y != numbersOfTextParalel[indexTextParalel + 1])) {
-							paralelRepresentedLinesBottom[i] = drawShapeLineStatic(false, paralel[i], numbersOfTextParalel[indexTextParalel],
-									numbersOfTextParalel[indexTextParalel+1], numbersOfTextParalel[indexTextParalel + 2], numbersOfTextParalel[indexTextParalel + 3],
+							paralelRepresentedLinesBottom[i] = drawShapeBottomLineStatic(false, paralel[i], paralel[i].nodeRed.x,
+									paralel[i].nodeRed.y, numbersOfTextParalel[indexTextParalel], numbersOfTextParalel[indexTextParalel+1],
 									strokeBorder, stroke, stringWidth, i, colors);
 						}
 						else{
@@ -522,17 +507,17 @@ class MyPrintCanvasTextDiagram extends JComponent {
 
 		float x_tangent = ((float) stringWidth) / 2;
 		float y_tangent = 0;
-		if (paralelOrHorizo.nodeRed.x != paralelOrHorizo.nodeGreen.x) {
+		if (x != x2) {
 			float tangentOfParalelOrHorizo = (float) (Math
-					.atan(((float) (paralelOrHorizo.nodeRed.y - y2)) / (paralelOrHorizo.nodeRed.x - x2)));
+					.atan(((float) (y - y2)) / (x - x2)));
 			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
 			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
 			System.out.println("x_tangent- " + x_tangent);
 		}
 
-		GradientPaint darkShade = new GradientPaint(paralelOrHorizo.nodeRed.x + x_tangent,
-				paralelOrHorizo.nodeRed.y - y_tangent, tempColor, paralelOrHorizo.nodeRed.x - x_tangent,
-				paralelOrHorizo.nodeRed.y + y_tangent, tempColorDarker);
+		GradientPaint darkShade = new GradientPaint(x + x_tangent,
+				y - y_tangent, tempColor, x - x_tangent,
+				y + y_tangent, tempColorDarker);
 
 		graphics2DCircleBorder.setPaint(darkShade);
 		drawLine(shape, x, y, x2, y2);
@@ -543,9 +528,9 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		x_tangent = ((float) stringWidth) / 2;
 		y_tangent = 0;
 		// changing tangent a little for making sure strings won't intersect
-		if (paralelOrHorizo.nodeRed.x != paralelOrHorizo.nodeGreen.x) {
+		if (x != x2) {
 			float tangentOfParalelOrHorizo = (float) (Math
-					.atan(((float) (paralelOrHorizo.nodeRed.y - y2)) / (paralelOrHorizo.nodeRed.x - x2)));
+					.atan(((float) (y - y2)) / (x- x2)));
 			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
 			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
 			System.out.println("x_tangent- " + x_tangent);
@@ -581,7 +566,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		borderOfShape.lineTo(x - x_tangent, y + y_tangent);
 		borderOfShape.lineTo(x2 - x_tangent, y2 + y_tangent);
 		borderOfShape.lineTo(x2 + x_tangent, y2 - y_tangent);
-		borderOfShape.lineTo(paralelOrHorizo.nodeRed.x + x_tangent, paralelOrHorizo.nodeRed.y - y_tangent);
+		borderOfShape.lineTo(x + x_tangent, y - y_tangent);
 		borderOfShape.closePath();
 
 		if (isHorizo == true) {
@@ -593,8 +578,8 @@ class MyPrintCanvasTextDiagram extends JComponent {
 			paralelArea[i] = new Area(borderOfShape);
 		}
 
-		float middlex = ((float) (paralelOrHorizo.nodeRed.x + paralelOrHorizo.nodeGreen.x)) / 2;
-		float middley = ((float) (paralelOrHorizo.nodeRed.y + paralelOrHorizo.nodeGreen.y)) / 2;
+		float middlex = ((float) (x + x2)) / 2;
+		float middley = ((float) (y + y2)) / 2;
 
 		imageRectangleBorder = CropCircleImage.cropInverse(imageRectangleBorder, (int) x2, (int) y2, stringWidth);
 
@@ -610,7 +595,142 @@ class MyPrintCanvasTextDiagram extends JComponent {
 		return imageCircleBorder;
 
 	}
+	public BufferedImage drawShapeBottomLineStatic(boolean isHorizo, nodeLine paralelOrHorizo, float x, float y, float x2,
+			float y2, BasicStroke strokeBorder, BasicStroke stroke, int stringWidth, int i, Color[] colors) {
+		int width = 2 * a * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.x1
+				+ 2 * MyPrintCanvasTextDiagram.lengthOfStringEnd + 100;
+		int height = 2 * b * MyPrintCanvasTextDiagram.length + 2 * MyPrintCanvasTextDiagram.y1 + 100;
 
+		// recieving the color of the string
+		int indexParalelOrHorizo = listNodeTextPoints.findNodePointIndex(paralelOrHorizo.nodeRed);
+
+		// circle edges
+		BufferedImage imageCircleBorder = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics2DCircleBorder = imageCircleBorder.createGraphics();
+		graphics2DCircleBorder.setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
+				RenderingHints.VALUE_ANTIALIAS_ON);
+
+		Color tempColor = colors[indexParalelOrHorizo];
+
+		///// getting a darker color
+		int red = tempColor.getRed();
+		int green = tempColor.getGreen();
+		int blue = tempColor.getBlue();
+
+		float[] hsb = new float[3];
+		Color.RGBtoHSB(red, green, blue, hsb);
+		float t = hsb[2];
+		hsb[2] = (float) ((t * 0.8) - (Math.pow(0.65 * t, 3) / (Math.log(0.8 * t + 10))));
+
+		Color tempColorDarker = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+
+		///// draws the border thicker string (black)
+		GeneralPath shapeBorder = new GeneralPath();
+
+		graphics2DCircleBorder.setColor(Color.BLACK);
+		graphics2DCircleBorder.setStroke(strokeBorder);
+		drawLine(shapeBorder, x, y, x2, y2);
+		graphics2DCircleBorder.draw(shapeBorder);
+
+		///// draws the colored string
+		GeneralPath shape = new GeneralPath();
+
+		graphics2DCircleBorder.setColor(tempColor);
+		graphics2DCircleBorder.setStroke(stroke);
+
+		// node, y1 is green node
+
+		float x_tangent = ((float) stringWidth) / 2;
+		float y_tangent = 0;
+		if (x != x2) {
+			float tangentOfParalelOrHorizo = (float) (Math
+					.atan(((float) (y - y2)) / (x - x2)));
+			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
+			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
+			System.out.println("x_tangent- " + x_tangent);
+		}
+
+		GradientPaint darkShade = new GradientPaint(x + x_tangent,
+				y - y_tangent, tempColor, x - x_tangent,
+				y + y_tangent, tempColorDarker);
+
+		graphics2DCircleBorder.setPaint(darkShade);
+		drawLine(shape, x, y, x2, y2);
+
+		// draws the circle shaped line to imageCircleBorder
+		graphics2DCircleBorder.draw(shape);
+
+		x_tangent = ((float) stringWidth) / 2;
+		y_tangent = 0;
+		// changing tangent a little for making sure strings won't intersect
+		if (x != x2) {
+			float tangentOfParalelOrHorizo = (float) (Math
+					.atan(((float) (y - y2)) / (x- x2)));
+			x_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.sin(tangentOfParalelOrHorizo));
+			y_tangent = (float) (0.5 * (stringWidth + recWidth) * Math.cos(tangentOfParalelOrHorizo));
+			System.out.println("bottom first point" + (x2+x_tangent)+","+(y2-y_tangent));
+			System.out.println("bottom second point"+ (x2-x_tangent)+","+(y2+y_tangent));
+		}
+
+		// rectangle edges
+		BufferedImage imageRectangleBorder = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics2DRecBorder = imageRectangleBorder.createGraphics();
+		graphics2DRecBorder.setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
+				RenderingHints.VALUE_ANTIALIAS_ON);
+
+		stroke = new BasicStroke(stringWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL, 0.1F);
+		strokeBorder = new BasicStroke(stringWidth + 2 * recWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL,
+				0.1F);
+		///// draws the thicker squared string
+		graphics2DRecBorder.setColor(Color.BLACK);
+		graphics2DRecBorder.setStroke(strokeBorder);
+		graphics2DRecBorder.draw(shape);
+
+		///// draws the colored string
+		graphics2DRecBorder.setPaint(darkShade);
+		// graphics2DRecBorder.setColor(tempColor);
+		graphics2DRecBorder.setStroke(stroke);
+		graphics2DRecBorder.draw(shape);
+
+		// gets the bounds of the shape. When getting intersected strings it
+		// will be more efficient to only search the bounds of the shape.
+		// gets the bounds of the shape. When getting intersected strings it
+		// will be more efficient to only search the bounds of the shape.
+
+		GeneralPath borderOfShape = new GeneralPath();
+		borderOfShape.moveTo(x + x_tangent, y - y_tangent);
+		borderOfShape.lineTo(x - x_tangent, y + y_tangent);
+		borderOfShape.lineTo(x2 - x_tangent, y2 + y_tangent);
+		borderOfShape.lineTo(x2 + x_tangent, y2 - y_tangent);
+		borderOfShape.lineTo(x + x_tangent, y - y_tangent);
+		borderOfShape.closePath();
+
+		if (isHorizo == true) {
+			rectangleShapeHorizo[i] = shape.getBounds2D();
+			horizoArea[i] = new Area(borderOfShape);
+		}
+		if (isHorizo == false) {
+			rectangleShapeParalel[i] = shape.getBounds2D();
+			paralelArea[i] = new Area(borderOfShape);
+		}
+
+		float middlex = ((float) (x + x2)) / 2;
+		float middley = ((float) (y + y2)) / 2;
+
+		imageRectangleBorder = CropCircleImage.cropInverse(imageRectangleBorder, (int) x2, (int) y2, stringWidth);
+
+		//CropImage.addImage(imageCircleBorder, imageRectangleBorder, 1, 0, 0);
+		// writes down the three points of the line to log
+		System.out.println("[" + isHorizo + "," + i + "," + x2 + "," + y2 + "]");
+		try {
+			ImageIO.write(imageRectangleBorder, "png", new File("c://temp//" + "imageCircleBottomBorder" + i + ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return imageCircleBorder;
+
+	}
 	/**
 	 * Converts a given Image into a BufferedImage
 	 *

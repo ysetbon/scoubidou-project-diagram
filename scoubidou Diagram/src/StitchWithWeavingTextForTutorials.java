@@ -221,6 +221,7 @@ public class StitchWithWeavingTextForTutorials {
 			CropImage.addImage(crissImg, paralelBottom[i], 1, 0, 0);
 		//	CropImage.addImage(crissImg, paralelStarting[i], 1, 0, 0);
 		}
+		
 		CropImage.addImage(crissImg, recImg, 1, 0, 0);
 		for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
 			CropImage.addImage(crissImg, horizo[i], 1, 0, 0);
@@ -368,7 +369,10 @@ public class StitchWithWeavingTextForTutorials {
 			for (int i = 0; i < canv.paralelRepresentedLines.length; i++) {
 				CropImage.addImage(crissImg, paralelStarting[i], 1, 0, 0);
 			}
-
+			for (int i = indexOfStitch - 1; i >= 0; i--) {
+				CropImage.addImage(crissImg, horizoBottom[i], 1, 0, 0);
+			//	CropImage.addImage(crissImg, horizoStarting[i], 1, 0, 0);
+			}
 			CropImage.addImage(crissImg, recImg, 1, 0, 0);
 			// adding
 			for (int i = indexOfStitch - 1; i >= 0; i--) {
@@ -396,7 +400,10 @@ public class StitchWithWeavingTextForTutorials {
 			for (int i = indexOfStitch; i < canv.paralelRepresentedLines.length; i++) {
 				CropImage.addImage(crissImg, paralelStarting[i], 1, 0, 0);
 			}
-
+			for (int i = indexOfStitch - 1; i >= 0; i--) {
+				CropImage.addImage(crissImg, paralelBottom[i], 1, 0, 0);
+			//	CropImage.addImage(crissImg, horizoStarting[i], 1, 0, 0);
+			}
 			CropImage.addImage(crissImg, recImg, 1, 0, 0);
 			// adding all horizo strings
 			for (int i = 0; i < canv.horizoRepresentedLines.length; i++) {
@@ -687,7 +694,7 @@ public class StitchWithWeavingTextForTutorials {
 		localwindow.setAutoRequestFocus(true);
 
 		int a = 1;
-		int b = 1;
+		int b = 3;
 		MyPrintCanvasTextDiagram.a = a;
 		MyPrintCanvasTextDiagram.b = b;
 		Color[] colors = new Color[1];
