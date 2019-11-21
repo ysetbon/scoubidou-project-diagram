@@ -106,17 +106,24 @@ public class StitchWithWeavingTextForTutorials {
 			colors[i] = new Color(183, 159, 200);
 		}
 		
-
-		colors[0] = new Color(140, 108, 132);
-		colors[2] = new Color(107, 167, 17);
-		colors[4] = new Color(140, 108, 132);
-	//	colors[6] = new Color(107, 167, 17);
-      //  colors[8] = new Color(202, 117, 63);
-	//	colors[10] = new Color(3, 83, 180);
-	/*	    colors[0] = new Color(87,87,87);
-			colors[1] = new Color(87,87,87);
-			colors[2] = new Color(217,61,13);
-			colors[3] = new Color(255,193,222);
+		
+		Color gray = new Color(92, 91, 90);
+		Color yellow = new Color(225, 188, 0);
+		Color torquise = new Color(31, 179, 148);
+		Color green = new Color(0, 96, 47);
+		colors[0] =torquise ;
+		//green
+		colors[2] = gray;
+		//yellow
+		colors[4] = green;
+		//torquise
+		colors[6] = yellow;
+        colors[8] = torquise;
+		//colors[10] = gray;
+		//    colors[12] = green;
+		//	colors[14] = yellow;
+			//colors[16] = new Color(217,61,13);
+		/*	colors[3] = new Color(255,193,222);
 			colors[4] = new Color(255,193,222);
 			colors[5] = new Color(217,61,13);
 			colors[6] = new Color(87,87,87);
@@ -344,35 +351,8 @@ public class StitchWithWeavingTextForTutorials {
 		}
 		
 		int counterForFinalDiagrams = 0;
-	/*	croppedSegments = new BufferedImage[paralel.length];
-		BufferedImage horizoEven = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		
-		for (int i = 0; i < horizo.length; i = i + 2) {
-			CropImage.addImage(horizoEven, horizo[i], 1, 0, 0);
-		}
-
-		BufferedImage horizoOdd = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-		for (int i = 1; i < horizo.length; i = i + 2) {
-			CropImage.addImage(horizoOdd, horizo[i], 1, 0, 0);
-		}
-		 croppedSegmentIndex = 0;
-		 
-		for (int j = 0; j < paralel.length; j = j + 2) {			
-			for (int i = 0; i < horizo.length; i = i + 2) {
-			croppedSegments[j] = CropImage.croppedIntersect( paralel[j],horizo[i], paralelBounds[j]);
-			}
-		}
-		
-		for (int j = 1; j < paralel.length; j = j + 2) {			
-			for (int i = 1; i < horizo.length; i = i + 2) {
-			croppedSegments[j] = CropImage.croppedIntersect( paralel[j],horizo[i], paralelBounds[j]);
-			}
-		}*/
-		//finishing segments changing
-		/////////////////////////////
-		
-		
+	
+			
 		// horizo pictures, first picture is non woven
 		for (int indexOfStitch = 0; indexOfStitch < canv.horizoRepresentedLines.length; indexOfStitch++) {
 			// refreshing horizo strings
@@ -738,7 +718,7 @@ public class StitchWithWeavingTextForTutorials {
 				BasicStroke.JOIN_BEVEL, 0.1F);
 
 		// int firstLineEndPoint = 2 * a + 2 * b + 2 * a - 3;
-		int firstLineEndPoint =5;
+		int firstLineEndPoint =7;
 		int crissNumberOfLines = 1;
 		StitchWithWeavingTextForTutorials wea = new StitchWithWeavingTextForTutorials();
 		// checikng an example 

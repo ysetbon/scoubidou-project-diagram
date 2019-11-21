@@ -58,7 +58,7 @@ class MyPrintCanvasDiagram extends JComponent {
 	public static Boolean isPaintRectangle = true;
 	int lineStart = b;
 	int lineStartOp = a;
-	static int firstLineEndPoint = 5;
+	static int firstLineEndPoint = 7;
 	int crissNumberOfLines =1;
 	Color firstColor = Color.RED;
 	Color secondColor = Color.BLACK;

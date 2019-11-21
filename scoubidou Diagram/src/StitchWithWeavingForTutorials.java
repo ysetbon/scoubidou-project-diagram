@@ -676,14 +676,12 @@ public class StitchWithWeavingForTutorials {
 				BasicStroke.JOIN_BEVEL, 0.1F);
 
 		// int firstLineEndPoint = 2 * a + 2 * b + 2 * a - 3;
-		int firstLineEndPoint =5;
-		int crissNumberOfLines = 1;
+		int firstLineEndPoint =7;
+		int crissNumberOfLines =1;
 		StitchWithWeavingForTutorials wea = new StitchWithWeavingForTutorials();
 		// checikng an example 
-
-		wea.printPicture(firstLineEndPoint, crissNumberOfLines, a, b);
 		
-	
+		wea.printPicture(firstLineEndPoint, crissNumberOfLines, a, b);
 	}
 
 	public void colorCorners(BufferedImage result, int a, int b) {

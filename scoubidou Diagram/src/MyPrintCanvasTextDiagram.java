@@ -32,7 +32,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 	// x, a can be changeable
 	public static int a = 1;
 	// y, b can be changeable
-	public static int b = 3;
+	public static int b = 2;
 	public static int lengthOfStringEnd = 50;
 
 	// spaces in-between 2 lines
@@ -54,7 +54,7 @@ class MyPrintCanvasTextDiagram extends JComponent {
 	public static Boolean isPaintRectangle = true;
 	int lineStart = b;
 	int lineStartOp = a;
-	static int firstLineEndPoint = 5;
+	static int firstLineEndPoint = 7;
 	int crissNumberOfLines = 1;
 	Color firstColor = Color.RED;
 	Color secondColor = Color.BLACK;
