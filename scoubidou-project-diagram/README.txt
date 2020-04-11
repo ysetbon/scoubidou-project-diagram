@@ -1,0 +1,1 @@
+Finished writing the broot force of optimal alignment of all horizo and paralel strings.!!! :)
