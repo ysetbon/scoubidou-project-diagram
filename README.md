@@ -7,7 +7,7 @@ The second one is much more complicated and I don't have it done yet, it is stil
 
 If you work with eclipse it is better to disable warnings, (there are tons and is better not to delete any of them).
 
-Create on your C: drive a temp folder, all the pictures will be rendered there. 
+Create on your C: drive a temp folder (C:\temp), all the pictures will be rendered there. 
 
 Need a question? email me at:
 ysetbon@gmail.com. 
